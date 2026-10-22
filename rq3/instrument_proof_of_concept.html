@@ -93,6 +93,15 @@
     .chart-panel h3, .scores-panel h3 { margin-bottom: 0; }
     .chart-panel svg { width: 100%; height: auto; display: block; overflow: visible; }
     .chart-note { color: var(--muted); font-size: 12px; margin: -3px 4px 4px; }
+    .chart-legend { display: flex; flex-wrap: wrap; gap: 9px 16px; margin: 8px 4px 14px; padding: 0; list-style: none; color: #45546b; font-size: 12px; }
+    .chart-legend li { display: flex; align-items: center; gap: 7px; }
+    .chart-swatch { display: inline-block; width: 22px; height: 12px; border: 1px solid; border-radius: 3px; flex-shrink: 0; }
+    .chart-swatch-1 { background: #edd9dc; border-color: #c7a4aa; }
+    .chart-swatch-2 { background: #f0e2dc; border-color: #cbb3a7; }
+    .chart-swatch-3 { background: #eeebdf; border-color: #c5bfaa; }
+    .chart-swatch-4 { background: #e2eadd; border-color: #b0bfa7; }
+    .chart-swatch-5 { background: #d6e5de; border-color: #9db9ac; }
+    .chart-swatch-neutral { height: 0; border: 0; border-top: 2px dashed #6b596d; border-radius: 0; }
     .score-entry { border-bottom: 1px solid var(--border); padding: 17px 0; }
     .score-entry:last-child { border-bottom: 0; }
     .score-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
@@ -103,6 +112,10 @@
     .score-fill { display: block; height: 100%; background: var(--blue); border-radius: 10px; }
     .results-explain { border-top: 1px solid var(--border); margin-top: 27px; padding-top: 23px; max-width: 900px; color: #45546b; font-size: 14px; }
     .results-explain p { margin-bottom: 12px; }
+    .aspect-descriptions { margin-top: 27px; border-top: 1px solid var(--border); padding-top: 23px; }
+    .aspect-description { margin-top: 20px; }
+    .aspect-description h3 { font-size: 15px; margin-bottom: 6px; }
+    .aspect-description p { color: #45546b; font-size: 14px; margin: 0; }
     .result-actions { margin-top: 23px; display: flex; flex-wrap: wrap; gap: 12px; }
     @media (max-width: 860px) {
       .result-layout { grid-template-columns: 1fr; }
@@ -200,13 +213,26 @@
         <section class="chart-panel" aria-labelledby="chartTitle">
           <h3 id="chartTitle">Ethical profile</h3>
           <svg id="radarChart" viewBox="0 0 660 560" role="img" aria-label="Radar chart of average scores by ethical aspect"></svg>
-          <p class="chart-note">Scale: 1 (lower alignment) to 5 (higher alignment). Missing aspect scores are omitted, not treated as zero.</p>
+          <ul class="chart-legend" aria-label="Radar chart zones">
+            <li><span class="chart-swatch chart-swatch-1" aria-hidden="true"></span>1</li>
+            <li><span class="chart-swatch chart-swatch-2" aria-hidden="true"></span>2</li>
+            <li><span class="chart-swatch chart-swatch-3" aria-hidden="true"></span>3</li>
+            <li><span class="chart-swatch chart-swatch-4" aria-hidden="true"></span>4</li>
+            <li><span class="chart-swatch chart-swatch-5" aria-hidden="true"></span>5</li>
+            <li><span class="chart-swatch chart-swatch-neutral" aria-hidden="true"></span>3: indifference</li>
+          </ul>
+          <p class="chart-note">Scale: 1 to 5. The dashed line marks indifference (3); zones reflect exact averages before rounding. Missing aspect scores are omitted, not treated as zero.</p>
         </section>
         <section class="scores-panel" aria-labelledby="scoresTitle">
           <h3 id="scoresTitle">Scores by aspect</h3>
           <div id="aspectScores"></div>
         </section>
       </div>
+      <section class="aspect-descriptions" aria-labelledby="descriptionsTitle">
+        <h2 id="descriptionsTitle">What your profile suggests</h2>
+        <p class="chart-note">These descriptions use your average score rounded to the nearest whole number. A rounded score of 3 indicates indifference toward the stated preference.</p>
+        <div id="aspectDescriptions"></div>
+      </section>
       <div class="results-explain">
         <p><strong>How the scores are calculated:</strong> Very unlikely = 1, unlikely = 2, neutral = 3, likely = 4, and very likely = 5 for positive-keyed items. Reverse-keyed items use the opposite scoring direction. “Not enough information or experience to judge” does not receive a score and is excluded from the mean.</p>
         <p><strong>Interpretation:</strong> This is a descriptive profile of self-reported preferences within the presented scenarios, not a judgment of a developer's ethical character. An aspect with no scored items has no average.</p>
@@ -322,7 +348,7 @@
     ]
   },
   {
-    "aspect": "Transparency and explainability",
+    "aspect": "Transparency and Explainability",
     "items": [
       {
         "id": "TE1",
@@ -430,6 +456,35 @@
 ]
 
 </script>
+<!-- Descriptions from soft_ethical_aspects.json, embedded for offline use. -->
+<script id="aspectDescriptionsData" type="application/json">
+[
+  {
+    "aspect": "Fairness",
+    "description": "Developers may prefer implementation choices that support equitable treatment across users, avoid encoding stereotypes, and differentiate users only when such distinctions are functionally relevant and justified."
+  },
+  {
+    "aspect": "Inclusiveness",
+    "description": "Developers may prefer implementation choices that accommodate users with different abilities, languages, devices, cultural conventions, gender identities, and needs, and that avoid implicitly centering only a narrow group of users."
+  },
+  {
+    "aspect": "Privacy",
+    "description": "Developers may prefer implementation choices that minimize the collection, processing, storage, exposure, or sharing of personal data beyond what is functionally necessary for the system."
+  },
+  {
+    "aspect": "Transparency and Explainability",
+    "description": "Developers may prefer implementation choices that make system behavior understandable to both maintainers and end users, through readable and self-explanatory implementation logic as well as clear user-facing explanations of system behavior."
+  },
+  {
+    "aspect": "Traceability",
+    "description": "Developers may prefer implementation choices that make relevant actions, decisions, and responsibilities inspectable, attributable, and reviewable."
+  },
+  {
+    "aspect": "Resource Consumption",
+    "description": "Developers may prefer implementation choices that minimize unnecessary computation, dependencies, network traffic, storage, and runtime overhead."
+  }
+]
+</script>
 <script>
   'use strict';
 
@@ -437,6 +492,8 @@
   // The source contains two I3 variants (one positive, one reverse-keyed): 26 items total.
   // Remove the unwanted variant from the source JSON if the instrument should have 25 items.
   const instrument = JSON.parse(document.getElementById('instrumentData').textContent);
+  const aspectDescriptions = new Map(JSON.parse(document.getElementById('aspectDescriptionsData').textContent)
+    .map(({aspect, description}) => [aspect, description]));
   const allItems = instrument.flatMap(group => group.items.map((item, index) => ({
     ...item,
     aspect: group.aspect,
@@ -538,12 +595,22 @@
     const point = (a, r) => [cx + Math.cos(a) * r, cy + Math.sin(a) * r];
     const pointsText = pairs => pairs.map(pair => pair.map(n => n.toFixed(2)).join(',')).join(' ');
 
+    // Paint from the outside inward so each level has its own pastel band.
+    const levelColors = ['#edd9dc', '#f0e2dc', '#eeebdf', '#e2eadd', '#d6e5de'];
+    for (let level = 5; level >= 1; level--) {
+      svg.append(svgNode('polygon', {
+        points: pointsText(angles.map(a => point(a, radius * level / 5))),
+        fill: levelColors[level - 1], stroke: 'none'
+      }));
+    }
+    const neutralRing = pointsText(angles.map(a => point(a, radius * 3 / 5)));
+
     // Reference rings and axis lines.
     for (let level = 1; level <= 5; level++) {
       const ring = angles.map(a => point(a, radius * level / 5));
       svg.append(svgNode('polygon', {
         points: pointsText(ring),
-        fill: level % 2 ? '#f0f4fc' : '#f9fbff',
+        fill: 'none',
         stroke: '#d3dceb', 'stroke-width': '1'
       }));
     }
@@ -551,18 +618,12 @@
       const [x,y] = point(a, radius);
       svg.append(svgNode('line', {x1: cx, y1: cy, x2: x, y2: y, stroke: '#cbd5e5', 'stroke-width': '1'}));
     });
-    for (let level = 1; level <= 5; level++) {
-      svg.append(svgNode('text', {
-        x: cx + 9, y: cy - radius * level / 5 + 4,
-        'font-size': 13, fill: '#8997ae', 'font-weight': 650
-      }, String(level)));
-    }
 
     const values = results.map((result, i) =>
       result.mean === null ? null : point(angles[i], radius * result.mean / 5));
     if (values.every(value => value !== null)) {
       svg.append(svgNode('polygon', {
-        points: pointsText(values), fill: '#4c67d4', 'fill-opacity': '.2',
+        points: pointsText(values), fill: '#4c67d4', 'fill-opacity': '.08',
         stroke: '#3458cc', 'stroke-width': '3', 'stroke-linejoin': 'round'
       }));
     } else {
@@ -579,6 +640,21 @@
       }
     }
 
+    // Keep the indifference boundary visible above the profile fill.
+    svg.append(svgNode('polygon', {
+      points: neutralRing, fill: 'none', stroke: '#6b596d',
+      'stroke-width': '2', 'stroke-dasharray': '6 4'
+    }));
+    for (let level = 1; level <= 5; level++) {
+      svg.append(svgNode('text', {
+        x: cx + 9, y: cy - radius * level / 5 + 4,
+        'font-size': 13, fill: level === 3 ? '#6b596d' : '#526079',
+        'font-weight': level === 3 ? 800 : 650,
+        stroke: levelColors[level - 1],
+        'stroke-width': 3, 'paint-order': 'stroke'
+      }, String(level)));
+    }
+
     values.forEach((value, i) => {
       if (value === null) return;
       svg.append(svgNode('circle', {
@@ -592,7 +668,7 @@
       'Fairness': ['Fairness'],
       'Inclusiveness': ['Inclusiveness'],
       'Privacy': ['Privacy'],
-      'Transparency and explainability': ['Transparency &', 'explainability'],
+      'Transparency and Explainability': ['Transparency &', 'explainability'],
       'Traceability': ['Traceability'],
       'Resource Consumption': ['Resource', 'consumption']
     };
@@ -613,7 +689,21 @@
       svg.append(title);
     });
     const caption = results.map(result => `${result.aspect}: ${result.mean === null ? 'no score' : result.mean.toFixed(2) + ' out of 5'}`).join('; ');
-    svg.setAttribute('aria-label', `Radar chart: ${caption}`);
+    svg.setAttribute('aria-label', `Radar chart. Five pastel bands progress from muted red at level 1 to muted green at level 5. Below 3: lower preference. Dashed boundary at 3: indifference. Above 3: higher preference. ${caption}`);
+  }
+
+  function personalizedDescription(result) {
+    if (result.mean === null) return 'There are no scored responses for this aspect, so no personalized description is available.';
+    const description = aspectDescriptions.get(result.aspect);
+    if (!description) return 'No description is available for this aspect.';
+    const prefixes = {
+      1: 'You may very unlikely',
+      2: 'You may unlikely',
+      3: 'You are indifferent as to whether you',
+      4: 'You may likely',
+      5: 'You may very likely'
+    };
+    return description.replace(/^Developers may\b/i, prefixes[Math.round(result.mean)]);
   }
 
   function renderResults() {
@@ -651,6 +741,18 @@
         entry.append(bar);
       }
       list.append(entry);
+    });
+    const descriptions = document.getElementById('aspectDescriptions');
+    descriptions.replaceChildren();
+    results.forEach(result => {
+      const entry = document.createElement('div');
+      entry.className = 'aspect-description';
+      const heading = document.createElement('h3');
+      heading.textContent = result.aspect;
+      const description = document.createElement('p');
+      description.textContent = personalizedDescription(result);
+      entry.append(heading, description);
+      descriptions.append(entry);
     });
     drawRadar(results);
     showView('results');

@@ -1,0 +1,26 @@
+[
+  {
+    "aspect": "Fairness",
+    "description": "Developers may prefer implementation choices that support equitable treatment across users, avoid encoding stereotypes, and differentiate users only when such distinctions are functionally relevant and justified."
+  },
+  {
+    "aspect": "Inclusiveness",
+    "description": "Developers may prefer implementation choices that accommodate users with different abilities, languages, devices, cultural conventions, gender identities, and needs, and that avoid implicitly centering only a narrow group of users."
+  },
+  {
+    "aspect": "Privacy",
+    "description": "Developers may prefer implementation choices that minimize the collection, processing, storage, exposure, or sharing of personal data beyond what is functionally necessary for the system."
+  },
+  {
+    "aspect": "Transparency and Explainability",
+    "description": "Developers may prefer implementation choices that make system behavior understandable to both maintainers and end users, through readable and self-explanatory implementation logic as well as clear user-facing explanations of system behavior."
+  },
+  {
+    "aspect": "Traceability",
+    "description": "Developers may prefer implementation choices that make relevant actions, decisions, and responsibilities inspectable, attributable, and reviewable."
+  },
+  {
+    "aspect": "Resource Consumption",
+    "description": "Developers may prefer implementation choices that minimize unnecessary computation, dependencies, network traffic, storage, and runtime overhead."
+  }
+]
