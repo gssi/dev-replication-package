@@ -1,0 +1,278 @@
+{
+  "instrument": "Developer Soft-Ethical Preferences — Scenario-Based Questionnaire",
+  "exportedAt": "2026-10-22T16:47:36.798Z",
+  "responseScale": {
+    "very_unlikely": 1,
+    "unlikely": 2,
+    "neutral": 3,
+    "likely": 4,
+    "very_likely": 5,
+    "not_enough_information": null
+  },
+  "itemsPresented": 25,
+  "responses": [
+    {
+      "presentationOrder": 1,
+      "id": "TR4",
+      "aspect": "Traceability",
+      "aspectDetail": "Decision traceability",
+      "keyType": "reversed",
+      "response": "likely",
+      "score": 2
+    },
+    {
+      "presentationOrder": 2,
+      "id": "F4",
+      "aspect": "Fairness",
+      "aspectDetail": "Different access rules",
+      "keyType": "positive",
+      "response": "unlikely",
+      "score": 2
+    },
+    {
+      "presentationOrder": 3,
+      "id": "TE3",
+      "aspect": "Transparency and explainability",
+      "aspectDetail": "Data request explanation",
+      "keyType": "reversed",
+      "response": "very_likely",
+      "score": 1
+    },
+    {
+      "presentationOrder": 4,
+      "id": "P2",
+      "aspect": "Privacy",
+      "aspectDetail": "Data processing and use",
+      "keyType": "reversed",
+      "response": "likely",
+      "score": 2
+    },
+    {
+      "presentationOrder": 5,
+      "id": "P1",
+      "aspect": "Privacy",
+      "aspectDetail": "Data collection",
+      "keyType": "positive",
+      "response": "likely",
+      "score": 4
+    },
+    {
+      "presentationOrder": 6,
+      "id": "TE5",
+      "aspect": "Transparency and explainability",
+      "aspectDetail": "Explanation of action consequences",
+      "keyType": "positive",
+      "response": "likely",
+      "score": 4
+    },
+    {
+      "presentationOrder": 7,
+      "id": "I4",
+      "aspect": "Inclusiveness",
+      "aspectDetail": "Device accessibility",
+      "keyType": "positive",
+      "response": "very_likely",
+      "score": 5
+    },
+    {
+      "presentationOrder": 8,
+      "id": "TE2",
+      "aspect": "Transparency and explainability",
+      "aspectDetail": "Meaningful comments",
+      "keyType": "positive",
+      "response": "very_unlikely",
+      "score": 1
+    },
+    {
+      "presentationOrder": 9,
+      "id": "RC1",
+      "aspect": "Resource Consumption",
+      "aspectDetail": "Redundant computation",
+      "keyType": "positive",
+      "response": "unlikely",
+      "score": 2
+    },
+    {
+      "presentationOrder": 10,
+      "id": "RC4",
+      "aspect": "Resource Consumption",
+      "aspectDetail": "Overhead",
+      "keyType": "positive",
+      "response": "very_likely",
+      "score": 5
+    },
+    {
+      "presentationOrder": 11,
+      "id": "I2",
+      "aspect": "Inclusiveness",
+      "aspectDetail": "Inclusion of different linguistic and cultural conventions",
+      "keyType": "reversed",
+      "response": "very_likely",
+      "score": 1
+    },
+    {
+      "presentationOrder": 12,
+      "id": "F1",
+      "aspect": "Fairness",
+      "aspectDetail": "Demographic attributes for logic",
+      "keyType": "reversed",
+      "response": "very_unlikely",
+      "score": 5
+    },
+    {
+      "presentationOrder": 13,
+      "id": "F2",
+      "aspect": "Fairness",
+      "aspectDetail": "Differences in validation procedures",
+      "keyType": "positive",
+      "response": "neutral",
+      "score": 3
+    },
+    {
+      "presentationOrder": 14,
+      "id": "RC3",
+      "aspect": "Resource Consumption",
+      "aspectDetail": "Disproportionate dependencies",
+      "keyType": "reversed",
+      "response": "not_enough_information",
+      "score": null
+    },
+    {
+      "presentationOrder": 15,
+      "id": "P4",
+      "aspect": "Privacy",
+      "aspectDetail": "Third-party data transmission",
+      "keyType": "reversed",
+      "response": "very_unlikely",
+      "score": 5
+    },
+    {
+      "presentationOrder": 16,
+      "id": "TR1",
+      "aspect": "Traceability",
+      "aspectDetail": "State history tracing",
+      "keyType": "positive",
+      "response": "unlikely",
+      "score": 2
+    },
+    {
+      "presentationOrder": 17,
+      "id": "RC2",
+      "aspect": "Resource Consumption",
+      "aspectDetail": "Unnecessary data transfer",
+      "keyType": "reversed",
+      "response": "not_enough_information",
+      "score": null
+    },
+    {
+      "presentationOrder": 18,
+      "id": "I1",
+      "aspect": "Inclusiveness",
+      "aspectDetail": "Accessibility",
+      "keyType": "positive",
+      "response": "very_likely",
+      "score": 5
+    },
+    {
+      "presentationOrder": 19,
+      "id": "TE4",
+      "aspect": "Transparency and explainability",
+      "aspectDetail": "Validation outcomes explanation",
+      "keyType": "positive",
+      "response": "very_unlikely",
+      "score": 1
+    },
+    {
+      "presentationOrder": 20,
+      "id": "P3",
+      "aspect": "Privacy",
+      "aspectDetail": "Data retention",
+      "keyType": "positive",
+      "response": "very_likely",
+      "score": 5
+    },
+    {
+      "presentationOrder": 21,
+      "id": "TR2",
+      "aspect": "Traceability",
+      "aspectDetail": "Attribution",
+      "keyType": "positive",
+      "response": "neutral",
+      "score": 3
+    },
+    {
+      "presentationOrder": 22,
+      "id": "I3",
+      "aspect": "Inclusiveness",
+      "aspectDetail": "Gender identities",
+      "keyType": "reversed",
+      "response": "very_likely",
+      "score": 1
+    },
+    {
+      "presentationOrder": 23,
+      "id": "TR3",
+      "aspect": "Traceability",
+      "aspectDetail": "Failure tracing",
+      "keyType": "reversed",
+      "response": "likely",
+      "score": 2
+    },
+    {
+      "presentationOrder": 24,
+      "id": "F3",
+      "aspect": "Fairness",
+      "aspectDetail": "Stereotypes in code/comments",
+      "keyType": "reversed",
+      "response": "very_unlikely",
+      "score": 5
+    },
+    {
+      "presentationOrder": 25,
+      "id": "TE1",
+      "aspect": "Transparency and explainability",
+      "aspectDetail": "Self-explanatory code structure",
+      "keyType": "positive",
+      "response": "not_enough_information",
+      "score": null
+    }
+  ],
+  "aspectScores": [
+    {
+      "aspect": "Fairness",
+      "mean": 3.75,
+      "scoredItems": 4,
+      "totalItems": 4
+    },
+    {
+      "aspect": "Inclusiveness",
+      "mean": 3,
+      "scoredItems": 4,
+      "totalItems": 4
+    },
+    {
+      "aspect": "Privacy",
+      "mean": 4,
+      "scoredItems": 4,
+      "totalItems": 4
+    },
+    {
+      "aspect": "Transparency and explainability",
+      "mean": 1.75,
+      "scoredItems": 4,
+      "totalItems": 5
+    },
+    {
+      "aspect": "Traceability",
+      "mean": 2.25,
+      "scoredItems": 4,
+      "totalItems": 4
+    },
+    {
+      "aspect": "Resource Consumption",
+      "mean": 3.5,
+      "scoredItems": 2,
+      "totalItems": 4
+    }
+  ]
+}
