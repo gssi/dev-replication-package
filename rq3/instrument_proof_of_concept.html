@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Developer Soft-Ethical Preferences - Questionnaire</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --ink: #182436;
+      --muted: #617087;
+      --border: #dce3ed;
+      --blue: #3458cc;
+      --blue-dark: #2948ad;
+      --blue-light: #eef2ff;
+      --teal: #169b97;
+      --radius: 17px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { min-width: 320px; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); line-height: 1.6; }
+    button { font: inherit; }
+    button:focus-visible, input:focus-visible + .choice-tile { outline: 3px solid #7b9bf3; outline-offset: 3px; }
+    .app { max-width: 1060px; margin: 0 auto; padding: 28px 24px 72px; }
+    .site-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding-bottom: 24px; }
+    .identity { display: flex; align-items: center; gap: 13px; }
+    .mark { width: 43px; height: 43px; border-radius: 13px; background: #1c356b; color: white; display: grid; place-items: center; font-weight: 800; font-size: 20px; letter-spacing: -1px; }
+    .site-title { font-size: 16px; font-weight: 800; line-height: 1.3; letter-spacing: -.02em; }
+    .site-subtitle { font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+    .privacy-chip { font-size: 12px; font-weight: 700; color: #356f69; background: #e6f5f1; border: 1px solid #c9e9df; padding: 7px 13px; border-radius: 999px; }
+    .panel { border: 1px solid var(--border); background: var(--card); border-radius: 21px; box-shadow: 0 12px 34px rgba(24,42,66,.045); }
+    .eyebrow { text-transform: uppercase; font-weight: 800; letter-spacing: .13em; font-size: 11px; color: var(--blue); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: clamp(30px, 4vw, 44px); letter-spacing: -.04em; line-height: 1.17; font-weight: 780; }
+    h2 { font-size: clamp(24px, 3.1vw, 34px); letter-spacing: -.028em; line-height: 1.22; }
+    h3 { font-size: 17px; letter-spacing: -.012em; }
+    strong { color: #1e2d42; }
+    .intro { padding: clamp(24px,5vw,54px); }
+    .intro-heading { max-width: 780px; margin: 16px 0 20px; }
+    .intro-lead { max-width: 780px; font-size: 17px; color: #40536e; }
+    .instructions { max-width: 840px; border-top: 1px solid var(--border); margin-top: 30px; padding-top: 28px; font-size: 15px; }
+    .instructions p { margin-bottom: 19px; }
+    .instructions p:last-child { margin-bottom: 0; }
+    .important { background: #f2f6ff; border-left: 4px solid var(--blue); border-radius: 0 11px 11px 0; padding: 15px 18px; margin: 27px 0 !important; }
+    .lead-question { font-weight: 800; font-style: italic; font-size: 18px; }
+    .intro-footer { margin-top: 34px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
+    .helper { color: var(--muted); font-size: 13px; }
+    .btn { cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 11px; min-height: 47px; padding: 10px 20px; border: 1px solid var(--border); font-weight: 750; background: #fff; color: var(--ink); transition: background .15s ease, transform .15s ease; }
+    .btn:hover:not(:disabled) { background: #f6f8fd; }
+    .btn:active:not(:disabled) { transform: translateY(1px); }
+    .btn-primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: var(--blue-dark); }
+    .btn:disabled { opacity: .46; cursor: not-allowed; }
+    [hidden] { display: none !important; }
+    .q-shell { max-width: 860px; margin: 0 auto; }
+    .q-heading { margin: 4px 0 20px; }
+    .q-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; align-items: end; margin: 12px 0; }
+    .q-index { font-size: 22px; line-height: 1.25; font-weight: 790; letter-spacing: -.025em; }
+    .q-count { font-size: 13px; color: var(--muted); }
+    .progress-track { height: 7px; width: 100%; border-radius: 99px; overflow: hidden; background: #dfe6f1; }
+    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg,var(--blue),var(--teal)); border-radius: 99px; transition: width .18s ease; }
+    .question-panel { padding: clamp(23px, 4.5vw, 42px); }
+    .section-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 850; color: #697891; }
+    .scenario-text { font-size: clamp(16px, 2.2vw, 19px); line-height: 1.78; margin: 14px 0 28px; white-space: pre-line; }
+    .statement-section { border-top: 1px solid var(--border); padding-top: 28px; }
+    .statement { margin: 13px 0 28px; padding: 15px 22px; background: #eef2fc; border-left: 4px solid var(--blue); border-radius: 0 11px 11px 0; font-size: clamp(17px, 2.3vw, 20px); line-height: 1.55; font-weight: 680; color: #243a6e; }
+    .choice-question { font-weight: 800; margin: 0 0 14px; font-size: 15px; }
+    .choices { border: 0; padding: 0; margin: 0; min-width: 0; display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 10px; }
+    .choice-option { display: block; position: relative; cursor: pointer; }
+    .choice-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .choice-tile { min-height: 77px; display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center; text-align: center; font-weight: 650; font-size: 13px; line-height: 1.3; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 8px; background: white; transition: all .15s ease; }
+    .choice-tile::before { content: ''; display: block; width: 15px; height: 15px; border: 1.5px solid #9aabc5; border-radius: 50%; background: #fff; flex: none; }
+    .choice-option:hover .choice-tile { border-color: #9cadde; background: #f8faff; }
+    .choice-input:checked + .choice-tile { border-color: var(--blue); background: var(--blue-light); box-shadow: inset 0 0 0 1px var(--blue); color: #203c95; }
+    .choice-input:checked + .choice-tile::before { background: var(--blue); border: 4px solid var(--blue); box-shadow: inset 0 0 0 3px white; }
+    .choice-na { grid-column: 1 / -1; }
+    .choice-na .choice-tile { min-height: 51px; flex-direction: row; justify-content: flex-start; padding: 12px 17px; font-weight: 600; }
+    .q-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+    .footer { margin: 22px 0 0; text-align: center; color: var(--muted); font-size: 12px; }
+    .results { padding: clamp(22px, 4.5vw, 45px); }
+    .results-header { margin-bottom: 30px; max-width: 760px; }
+    .results-header p { font-size: 15px; color: var(--muted); margin-bottom: 0; }
+    .result-overview { display: flex; flex-wrap: wrap; gap: 11px; margin: 0 0 28px; }
+    .stat { border: 1px solid var(--border); background: #fafcff; padding: 14px 18px; border-radius: 12px; min-width: 135px; }
+    .stat-number { font-weight: 800; font-size: 27px; line-height: 1.2; letter-spacing: -.035em; }
+    .stat-label { font-size: 12px; color: var(--muted); }
+    .result-layout { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(280px,.85fr); gap: 21px; align-items: start; }
+    .chart-panel, .scores-panel { border: 1px solid var(--border); border-radius: 15px; background: #fcfdff; padding: 20px; }
+    .chart-panel h3, .scores-panel h3 { margin-bottom: 0; }
+    .chart-panel svg { width: 100%; height: auto; display: block; overflow: visible; }
+    .chart-note { color: var(--muted); font-size: 12px; margin: -3px 4px 4px; }
+    .score-entry { border-bottom: 1px solid var(--border); padding: 17px 0; }
+    .score-entry:last-child { border-bottom: 0; }
+    .score-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .score-name { font-weight: 740; font-size: 14px; line-height: 1.4; }
+    .score-number { font-weight: 830; color: var(--blue); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .score-detail { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .score-meter { margin-top: 9px; background: #e6ebf5; height: 7px; border-radius: 10px; overflow: hidden; }
+    .score-fill { display: block; height: 100%; background: var(--blue); border-radius: 10px; }
+    .results-explain { border-top: 1px solid var(--border); margin-top: 27px; padding-top: 23px; max-width: 900px; color: #45546b; font-size: 14px; }
+    .results-explain p { margin-bottom: 12px; }
+    .result-actions { margin-top: 23px; display: flex; flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 860px) {
+      .result-layout { grid-template-columns: 1fr; }
+      .chart-panel { max-width: 600px; width: 100%; margin: 0 auto; }
+    }
+    @media (max-width: 680px) {
+      .app { padding: 15px 13px 42px; }
+      .site-header { padding: 5px 2px 18px; }
+      .privacy-chip { display: none; }
+      .choices { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .choice-na { grid-column: 1 / -1; }
+      .choice-tile { min-height: 67px; }
+      .results { padding: 23px 16px; }
+      .chart-panel, .scores-panel { padding: 15px 11px; }
+      .q-nav .btn { flex: 1; }
+      .intro-footer .btn { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0s !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="site-header">
+    <div class="identity">
+      <div class="mark" aria-hidden="true">&lt;/&gt;</div>
+      <div><div class="site-title">Developer Soft-Ethical Preferences</div><div class="site-subtitle">Scenario-based elicitation instrument</div></div>
+    </div>
+    <div class="privacy-chip">Local &amp; private · no data sent</div>
+  </header>
+
+  <main id="main">
+    <section id="introView" class="panel intro" aria-labelledby="introTitle">
+      <div class="eyebrow">Questionnaire instructions</div>
+      <h1 class="intro-heading" id="introTitle">Think of a software system you know well.</h1>
+      <p class="intro-lead">Read the instructions carefully before answering. You will make hypothetical implementation choices in a consistent application context.</p>
+      <div class="instructions">
+        <p>You will be presented with a series of software implementation scenarios. Each scenario describes a situation in which more than one implementation choice is possible. You will be asked to indicate how likely you would be to choose the implementation described in each scenario.</p>
+        <p>Before answering, <strong>think of a software system or application context that you know well,</strong> preferably one that you have worked on directly. You do not need to report or describe the system you selected. <strong>Keep the same system in mind throughout the questionnaire</strong> and evaluate each scenario in relation to that context.</p>
+        <p>For each scenario, <strong>assume that the functional and non-functional requirements do not prescribe a specific choice, that no legal or organizational rule requires one of the alternatives, and that either implementation would satisfy the intended functionality</strong>. Unless otherwise stated, assume that the difference in implementation effort is not substantial.</p>
+        <p>Imagine that you are responsible for making the implementation decision. If a scenario does not directly occur in the system you selected, consider how you would make an analogous implementation decision in that context.</p>
+        <p class="important"><strong><em>There are no correct or incorrect answers. We are interested in the implementation you would personally be more likely to choose under the conditions described.</em></strong></p>
+        <p class="lead-question">When faced with the following implementation scenarios, how likely would you be to make the described choice?</p>
+      </div>
+      <div class="intro-footer">
+        <button class="btn btn-primary" type="button" id="startBtn">Begin questionnaire <span aria-hidden="true">→</span></button>
+        <div class="helper"><span id="introCount">—</span> scenarios · answers can be reviewed before finishing</div>
+      </div>
+    </section>
+
+    <section id="questionView" class="q-shell" hidden aria-labelledby="questionTitle">
+      <div class="q-heading">
+        <div class="eyebrow">Implementation choices</div>
+        <div class="q-meta">
+          <h1 id="questionTitle" class="q-index" tabindex="-1">Question 1 of 26</h1>
+          <span id="answeredCount" class="q-count">0 answered</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="Question progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressTrack"><div class="progress-bar" id="progressBar"></div></div>
+      </div>
+      <div class="panel question-panel">
+        <div class="section-label">Scenario</div>
+        <p id="scenarioText" class="scenario-text"></p>
+        <div class="statement-section">
+          <div class="section-label">Implementation choice</div>
+          <blockquote id="statementText" class="statement"></blockquote>
+          <fieldset class="choices" id="choicesFieldset" aria-label="How likely would you be to make this choice?">
+            <legend class="choice-question">How likely would you be to make the described choice?</legend>
+            <label class="choice-option"><input class="choice-input" type="radio" name="likelihood" value="very_unlikely"><span class="choice-tile">Very unlikely</span></label>
+            <label class="choice-option"><input class="choice-input" type="radio" name="likelihood" value="unlikely"><span class="choice-tile">Unlikely</span></label>
+            <label class="choice-option"><input class="choice-input" type="radio" name="likelihood" value="neutral"><span class="choice-tile">Neutral</span></label>
+            <label class="choice-option"><input class="choice-input" type="radio" name="likelihood" value="likely"><span class="choice-tile">Likely</span></label>
+            <label class="choice-option"><input class="choice-input" type="radio" name="likelihood" value="very_likely"><span class="choice-tile">Very likely</span></label>
+            <label class="choice-option choice-na"><input class="choice-input" type="radio" name="likelihood" value="not_enough_information"><span class="choice-tile">Not enough information to answer</span></label>
+          </fieldset>
+        </div>
+      </div>
+      <nav class="q-nav" aria-label="Questionnaire navigation">
+        <button id="backBtn" class="btn" type="button">← Previous</button>
+        <button id="nextBtn" class="btn btn-primary" type="button" disabled>Next question →</button>
+      </nav>
+      <p class="footer">Your answers stay in this page; no data is sent to a server.</p>
+    </section>
+
+    <section id="resultsView" class="panel results" hidden aria-labelledby="resultsTitle">
+      <div class="results-header">
+        <div class="eyebrow">Questionnaire completed</div>
+        <h1 id="resultsTitle" style="margin:12px 0 15px" tabindex="-1">Your soft-ethical preference profile</h1>
+        <p>The radar chart shows the average of your scored responses for each ethical aspect on a scale from 1 to 5. Higher values indicate stronger alignment with that aspect as operationalized by these scenarios.</p>
+      </div>
+      <div class="result-overview">
+        <div class="stat"><div class="stat-number" id="totalStat">—</div><div class="stat-label">Scenarios answered</div></div>
+        <div class="stat"><div class="stat-number" id="scoredStat">—</div><div class="stat-label">Scored responses</div></div>
+        <div class="stat"><div class="stat-number" id="unscoredStat">—</div><div class="stat-label">Without a score</div></div>
+      </div>
+      <div class="result-layout">
+        <section class="chart-panel" aria-labelledby="chartTitle">
+          <h3 id="chartTitle">Ethical profile</h3>
+          <svg id="radarChart" viewBox="0 0 660 560" role="img" aria-label="Radar chart of average scores by ethical aspect"></svg>
+          <p class="chart-note">Scale: 1 (lower alignment) to 5 (higher alignment). Missing aspect scores are omitted, not treated as zero.</p>
+        </section>
+        <section class="scores-panel" aria-labelledby="scoresTitle">
+          <h3 id="scoresTitle">Scores by aspect</h3>
+          <div id="aspectScores"></div>
+        </section>
+      </div>
+      <div class="results-explain">
+        <p><strong>How the scores are calculated:</strong> Very unlikely = 1, unlikely = 2, neutral = 3, likely = 4, and very likely = 5 for positive-keyed items. Reverse-keyed items use the opposite scoring direction. “Not enough information to answer” does not receive a score and is excluded from the mean.</p>
+        <p><strong>Interpretation:</strong> This is a descriptive profile of self-reported preferences within the presented scenarios, not a judgment of a developer's ethical character. An aspect with no scored items has no average.</p>
+      </div>
+      <div class="result-actions">
+        <button class="btn btn-primary" id="downloadBtn" type="button">↓ Download responses (JSON)</button>
+        <button class="btn" id="reviewBtn" type="button">← Review answers</button>
+        <button class="btn" id="restartBtn" type="button">Start again</button>
+      </div>
+    </section>
+  </main>
+</div>
+<script id="instrumentData" type="application/json">
+  [
+  {
+    "aspect": "Fairness",
+    "items": [
+      {
+        "id": "F1",
+        "aspectDetail": "Demographic attributes for logic",
+        "scenario": "A recommendation component ranks content for users. It can be implemented using the user's past interactions alone or by also considering gender and nationality, which are already available in the user profile. Both implementations can provide the required recommendations.",
+        "statement": "I would include gender and nationality among the input features used for ranking.",
+        "keyType": "reversed"
+      },
+      {
+        "id": "F2",
+        "aspectDetail": "Differences in validation procedures",
+        "scenario": "A shopping platform requires sellers to verify their identities before activating their accounts. The verification process can be the same for all sellers or include an additional verification step for sellers who indicate certain nationalities, based on patterns observed in previous registrations. Both implementations can complete the required identity verification.",
+        "statement": "I would use the same verification process for all sellers.",
+        "keyType": "positive"
+      },
+      {
+        "id": "F3",
+        "aspectDetail": "Stereotypes in code/comments",
+        "scenario": "An onboarding component includes an optional guided mode with additional instructions, available to all users. A comment explaining the feature can describe it as providing extra guidance for older users, or simply describe when and how the guided mode is activated. Both comments document the same functionality.",
+        "statement": "I would describe the feature in the comment as providing extra guidance for older users.",
+        "keyType": "reversed"
+      },
+      {
+        "id": "F4",
+        "aspectDetail": "Different access rules",
+        "scenario": "An application is gradually releasing a new feature to a limited number of users. Previous releases show that users in one age group are more likely to activate and continue using new features. Access can be granted in sign-up order or prioritized for users in that age group to reduce unused invitations. Both approaches respect the rollout limit.",
+        "statement": "I would keep the same access procedure for all users without prioritizing any group.",
+        "keyType": "positive"
+      }
+    ]
+  },
+  {
+    "aspect": "Inclusiveness",
+    "items": [
+      {
+        "id": "I1",
+        "aspectDetail": "Accessibility",
+        "scenario": "An interface includes controls that can be operated using a mouse. It can be implemented with mouse interaction only, or it can also support keyboard navigation, which requires additional implementation and testing. Both implementations provide the required functionality.",
+        "statement": "I would support both mouse and keyboard interaction.",
+        "keyType": "positive"
+      },
+      {
+        "id": "I2",
+        "aspectDetail": "Inclusion of different linguistic and cultural conventions",
+        "scenario": "A form asks users to enter their name. It can accept Latin characters only; therefore, users whose names use other writing systems can enter a transliterated version, or it can support names written in their original scripts, which requires broader input handling and validation. Both implementations allow users to provide their names.",
+        "statement": "I would keep support limited to Latin characters only.",
+        "keyType": "reversed"
+      },
+      {
+        "id": "I3",
+        "aspectDetail": "Gender identities",
+        "scenario": "A profile form asks users to provide their gender identity. It can use a predefined set of options (e.g., “male”, “female”, “prefer not to disclose”), which simplifies validation and downstream processing, or include additional options (e.g., “non-binary”, “other” option with non-mandatory free text, etc.), which requires handling more input values. Both implementations allow the system to collect the required profile information.",
+        "statement": "I would use the predefined set of options.",
+        "keyType": "reversed"
+      },
+      {
+        "id": "I4",
+        "aspectDetail": "Device accessibility",
+        "scenario": "An interface for desktop computers can be designed around the screen resolutions most commonly used, which keeps layout handling simpler, or it can also accommodate older devices with lower screen resolutions, which requires additional layout adaptations and compatibility testing. Both implementations provide the required functionality.",
+        "statement": "I would design the interface to also accommodate older devices with lower screen resolutions.",
+        "keyType": "positive"
+      }
+    ]
+  },
+  {
+    "aspect": "Privacy",
+    "items": [
+      {
+        "id": "P1",
+        "aspectDetail": "Data collection",
+        "scenario": "An account registration form requires an email address and password to create an account. It can collect only this information or also ask for additional information such as name, birthdate, gender, and occupation to support more detailed user representation. Both implementations provide the required account functionality.",
+        "statement": "I would collect only the information needed to create the account.",
+        "keyType": "positive"
+      },
+      {
+        "id": "P2",
+        "aspectDetail": "Data processing and use",
+        "scenario": "A feature suggests nearby content based on the user's location. The implementation can use the city selected by the user to provide general suggestions, or, with the user's permission, use their precise location to provide more geographically accurate suggestions. Both approaches fulfill the feature's purpose.",
+        "statement": "I would use the user's precise location to generate the suggestions.",
+        "keyType": "reversed"
+      },
+      {
+        "id": "P3",
+        "aspectDetail": "Data retention",
+        "scenario": "A delivery feature allows users to provide instructions for completing an order (e.g., where to leave a package). The implementation can use these instructions for the current delivery only, or, with the user's consent, retain them to automatically reuse them for future orders. Both implementations support the delivery functionality, but differ in whether users need to re-enter their instructions for subsequent orders.",
+        "statement": "I would use the instructions for the current delivery without retaining them for future orders.",
+        "keyType": "positive"
+      },
+      {
+        "id": "P4",
+        "aspectDetail": "Third-party data transmission",
+        "scenario": "An application uses an external analytics service to understand how users interact with its features. The implementation can send individual usage events associated with a user identifier, allowing the service to analyze usage patterns across sessions, or send aggregated usage statistics without individual identifiers, allowing analysis of overall feature usage. Both approaches provide information about how the application is used.",
+        "statement": "I would send individual usage events associated with a user identifier.",
+        "keyType": "reversed"
+      }
+    ]
+  },
+  {
+    "aspect": "Transparency and explainability",
+    "items": [
+      {
+        "id": "TE1",
+        "aspectDetail": "Self-explanatory code structure",
+        "scenario": "A function determines whether an order can be refunded based on several conditions, such as payment status, delivery status, and time since purchase. The logic can be implemented as a single compact conditional expression or by defining named variables for each condition and then combining them. Both implementations produce the same result.",
+        "statement": "I would use named variables for the individual conditions.",
+        "keyType": "positive"
+      },
+      {
+        "id": "TE2",
+        "aspectDetail": "Meaningful comments",
+        "scenario": "A component removes milliseconds from a timestamp before sending it to an external service because that service rejects timestamps with millisecond precision. The conversion can be implemented either without additional documentation or with a comment explaining why the precision is reduced. Both implementations behave in the same way.",
+        "statement": "I would include the comment explaining the reason for reducing the timestamp precision.",
+        "keyType": "positive"
+      },
+      {
+        "id": "TE3",
+        "aspectDetail": "Data request explanation",
+        "scenario": "A checkout form requires the user's phone number because the delivery service may need it to complete the delivery. The form can mark the field as required without further explanation or display a short explanation of why the phone number is requested, which adds text to the interface that needs to be maintained. Both implementations collect the information required to complete the order.",
+        "statement": "I would just mark the field as required.",
+        "keyType": "reversed"
+      },
+      {
+        "id": "TE4",
+        "aspectDetail": "Validation outcomes explanation",
+        "scenario": "A registration form requires passwords to satisfy specific rules, such as minimum length and character requirements. When a password does not satisfy the rules, the interface can display a generic message stating that the password is invalid or indicate which requirement was not met.",
+        "statement": "I would indicate which requirement was not met.",
+        "keyType": "positive"
+      },
+      {
+        "id": "TE5",
+        "aspectDetail": "Explanation of action consequences",
+        "scenario": "A user can change the username associated with their profile. Changing the username also changes the profile URL, meaning that previously shared links will no longer work. The interface can ask the user to confirm the change without mentioning this consequence or inform them about it before they confirm. Both implementations perform the same username update.",
+        "statement": "I would inform the user that previously shared profile links will no longer work.",
+        "keyType": "positive"
+      }
+    ]
+  },
+  {
+    "aspect": "Traceability",
+    "items": [
+      {
+        "id": "TR1",
+        "aspectDetail": "State history tracing",
+        "scenario": "An order-processing component updates an order as it moves through states such as pending, confirmed, and shipped. The system can store only the current state or also store and log each state change together with the time it occurred.",
+        "statement": "I would log each state change and its timestamp.",
+        "keyType": "positive"
+      },
+      {
+        "id": "TR2",
+        "aspectDetail": "Attribution",
+        "scenario": "A shared project allows team members to change its display settings (e.g., layout or color theme). The system can log each change and its timestamp, or also record which team member made the change, which requires storing an additional identifier in the log. Both implementations allow the changes to be tracked.",
+        "statement": "I would also record which team member made the change.",
+        "keyType": "positive"
+      },
+      {
+        "id": "TR3",
+        "aspectDetail": "Failure tracing",
+        "scenario": "A background job processes a sequence of operations and may fail before completing them. The system can log only that the job failed or also record the operation being executed and the error returned when the failure occurred, which requires handling and storing additional diagnostic information. Both implementations can report that the job was unsuccessful.",
+        "statement": "I would keep the log simpler and record the failed job only.",
+        "keyType": "reversed"
+      },
+      {
+        "id": "TR4",
+        "aspectDetail": "Decision traceability",
+        "scenario": "A validation component checks a request against several rules before accepting or rejecting it. The system can store only the final outcome, or also log which validation rule determined that outcome, which requires recording additional decision information. Both implementations perform the same validation.",
+        "statement": "I would store only the final outcome without logging which validation rule determined it.",
+        "keyType": "reversed"
+      }
+    ]
+  },
+  {
+    "aspect": "Resource Consumption",
+    "items": [
+      {
+        "id": "RC1",
+        "aspectDetail": "Redundant computation",
+        "scenario": "A dashboard displays the same aggregate metric in several components. Computing the metric requires a non-trivial aggregation of a set of records. Each component can compute the metric independently when it is rendered, which keeps the components self-contained, or the metric can be computed once and reused across components, which requires sharing the result.",
+        "statement": "I would compute the metric once and reuse the result.",
+        "keyType": "positive"
+      },
+      {
+        "id": "RC2",
+        "aspectDetail": "Unnecessary data transfer",
+        "scenario": "Several components in an application need the same data during a session. The data does not change during the session. Each component can request the data from the server when it needs it, which keeps the components independent, or the application can fetch the data once and reuse it locally, which requires managing the shared data.",
+        "statement": "I would let each component request the data when needed.",
+        "keyType": "reversed"
+      },
+      {
+        "id": "RC3",
+        "aspectDetail": "Disproportionate dependencies",
+        "scenario": "A component requires a set of utility functions. The implementation can use a small library focused on those functions, which requires some additional integration code, or a larger general-purpose library that provides the same functions and is easier to integrate. Both alternatives provide the required functionality, but differ in library size and integration effort.",
+        "statement": "I would use the larger general-purpose library.",
+        "keyType": "reversed"
+      },
+      {
+        "id": "RC4",
+        "aspectDetail": "Overhead",
+        "scenario": "A dashboard contains several independent components that display different information. When the data used by one component changes, the interface can update all dashboard components, which keeps the update logic simpler, or update only the components affected by the change, which requires more fine-grained update handling.",
+        "statement": "I would update only the components affected by the change.",
+        "keyType": "positive"
+      }
+    ]
+  }
+]
+
+</script>
+<script>
+  'use strict';
+
+  // This instrument intentionally retains every item in the supplied JSON.
+  // The source contains two I3 variants (one positive, one reverse-keyed): 26 items total.
+  // Remove the unwanted variant from the source JSON if the instrument should have 25 items.
+  const instrument = JSON.parse(document.getElementById('instrumentData').textContent);
+  const allItems = instrument.flatMap(group => group.items.map((item, index) => ({
+    ...item,
+    aspect: group.aspect,
+    // A unique internal key is required because the supplied data repeats the ID "I3".
+    internalKey: group.aspect + ':' + index + ':' + item.id
+  })));
+  const responseValues = {
+    very_unlikely: 1,
+    unlikely: 2,
+    neutral: 3,
+    likely: 4,
+    very_likely: 5,
+    not_enough_information: null
+  };
+  const views = {
+    intro: document.getElementById('introView'),
+    questions: document.getElementById('questionView'),
+    results: document.getElementById('resultsView')
+  };
+  const radios = Array.from(document.querySelectorAll('input[name="likelihood"]'));
+  let order = [];
+  let responses = new Map();
+  let currentIndex = 0;
+
+  document.getElementById('introCount').textContent = allItems.length;
+
+  function showView(which) {
+    for (const [key, element] of Object.entries(views)) element.hidden = key !== which;
+    window.scrollTo({top: 0, behavior: 'auto'});
+  }
+
+  function shuffle(items) {
+    const result = [...items];
+    // Fisher–Yates: every item has the same probability of appearing at each position.
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  }
+
+  function start() {
+    order = shuffle(allItems);
+    responses = new Map();
+    currentIndex = 0;
+    showView('questions');
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    const item = order[currentIndex];
+    document.getElementById('questionTitle').textContent = `Question ${currentIndex + 1} of ${order.length}`;
+    document.getElementById('scenarioText').textContent = item.scenario;
+    document.getElementById('statementText').textContent = item.statement;
+    const selected = responses.get(item.internalKey);
+    radios.forEach(input => { input.checked = input.value === selected; });
+    document.getElementById('answeredCount').textContent = `${responses.size} of ${order.length} answered`;
+    const progress = ((currentIndex + 1) / order.length) * 100;
+    document.getElementById('progressBar').style.width = `${progress}%`;
+    document.getElementById('progressTrack').setAttribute('aria-valuenow', String(Math.round(progress)));
+    document.getElementById('backBtn').disabled = currentIndex === 0;
+    document.getElementById('nextBtn').disabled = selected === undefined;
+    document.getElementById('nextBtn').textContent = currentIndex === order.length - 1 ? 'View my profile →' : 'Next question →';
+    document.getElementById('questionTitle').focus({preventScroll:true});
+  }
+
+  function scoreItem(item, response) {
+    const raw = responseValues[response];
+    if (raw === null || raw === undefined) return null;
+    return item.keyType === 'reversed' ? 6 - raw : raw;
+  }
+
+  function resultsByAspect() {
+    return instrument.map(group => {
+      const items = allItems.filter(item => item.aspect === group.aspect);
+      const scored = items.map(item => scoreItem(item, responses.get(item.internalKey)))
+        .filter(score => score !== null);
+      return {
+        aspect: group.aspect,
+        mean: scored.length ? scored.reduce((total, value) => total + value, 0) / scored.length : null,
+        scoredItems: scored.length,
+        totalItems: items.length
+      };
+    });
+  }
+
+  function svgNode(name, attributes = {}, text = '') {
+    const node = document.createElementNS('http://www.w3.org/2000/svg', name);
+    Object.entries(attributes).forEach(([key, val]) => node.setAttribute(key, String(val)));
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  function drawRadar(results) {
+    const svg = document.getElementById('radarChart');
+    svg.replaceChildren();
+    const cx = 330, cy = 270, radius = 174, n = results.length;
+    const angles = results.map((_, i) => -Math.PI / 2 + 2 * Math.PI * i / n);
+    const point = (a, r) => [cx + Math.cos(a) * r, cy + Math.sin(a) * r];
+    const pointsText = pairs => pairs.map(pair => pair.map(n => n.toFixed(2)).join(',')).join(' ');
+
+    // Reference rings and axis lines.
+    for (let level = 1; level <= 5; level++) {
+      const ring = angles.map(a => point(a, radius * level / 5));
+      svg.append(svgNode('polygon', {
+        points: pointsText(ring),
+        fill: level % 2 ? '#f0f4fc' : '#f9fbff',
+        stroke: '#d3dceb', 'stroke-width': '1'
+      }));
+    }
+    angles.forEach(a => {
+      const [x,y] = point(a, radius);
+      svg.append(svgNode('line', {x1: cx, y1: cy, x2: x, y2: y, stroke: '#cbd5e5', 'stroke-width': '1'}));
+    });
+    for (let level = 1; level <= 5; level++) {
+      svg.append(svgNode('text', {
+        x: cx + 9, y: cy - radius * level / 5 + 4,
+        'font-size': 13, fill: '#8997ae', 'font-weight': 650
+      }, String(level)));
+    }
+
+    const values = results.map((result, i) =>
+      result.mean === null ? null : point(angles[i], radius * result.mean / 5));
+    if (values.every(value => value !== null)) {
+      svg.append(svgNode('polygon', {
+        points: pointsText(values), fill: '#4c67d4', 'fill-opacity': '.2',
+        stroke: '#3458cc', 'stroke-width': '3', 'stroke-linejoin': 'round'
+      }));
+    } else {
+      // Draw only segments joining adjacent scored aspects, never invent zeroes for missing data.
+      for (let i = 0; i < n; i++) {
+        const next = (i + 1) % n;
+        if (values[i] !== null && values[next] !== null) {
+          svg.append(svgNode('line', {
+            x1: values[i][0], y1: values[i][1],
+            x2: values[next][0], y2: values[next][1],
+            stroke: '#3458cc', 'stroke-width': '3'
+          }));
+        }
+      }
+    }
+
+    values.forEach((value, i) => {
+      if (value === null) return;
+      svg.append(svgNode('circle', {
+        cx: value[0], cy: value[1], r: 6, fill: '#3458cc',
+        stroke: 'white', 'stroke-width': 2.5
+      }));
+      svg.append(svgNode('title', {}, `${results[i].aspect}: ${results[i].mean.toFixed(2)} / 5`));
+    });
+
+    const labelLines = {
+      'Fairness': ['Fairness'],
+      'Inclusiveness': ['Inclusiveness'],
+      'Privacy': ['Privacy'],
+      'Transparency and explainability': ['Transparency &', 'explainability'],
+      'Traceability': ['Traceability'],
+      'Resource Consumption': ['Resource', 'consumption']
+    };
+    results.forEach((result, index) => {
+      const [x, y] = point(angles[index], radius + 59);
+      const horizontal = Math.cos(angles[index]);
+      const anchor = horizontal > .3 ? 'start' : horizontal < -.3 ? 'end' : 'middle';
+      const lines = labelLines[result.aspect] || [result.aspect];
+      const title = svgNode('text', {
+        x, y: y - ((lines.length - 1) * 8),
+        'text-anchor': anchor, fill: result.mean === null ? '#9eabbc' : '#34445f',
+        'font-size': 15, 'font-weight': 700
+      });
+      lines.forEach((line, k) => {
+        const textSpan = svgNode('tspan', {x, dy: k === 0 ? 0 : 18}, line);
+        title.append(textSpan);
+      });
+      svg.append(title);
+    });
+    const caption = results.map(result => `${result.aspect}: ${result.mean === null ? 'no score' : result.mean.toFixed(2) + ' out of 5'}`).join('; ');
+    svg.setAttribute('aria-label', `Radar chart: ${caption}`);
+  }
+
+  function renderResults() {
+    const results = resultsByAspect();
+    document.getElementById('totalStat').textContent = responses.size;
+    const scoredCount = allItems.filter(item => scoreItem(item, responses.get(item.internalKey)) !== null).length;
+    document.getElementById('scoredStat').textContent = scoredCount;
+    document.getElementById('unscoredStat').textContent = order.length - scoredCount;
+    const list = document.getElementById('aspectScores');
+    list.replaceChildren();
+    results.forEach(result => {
+      const entry = document.createElement('div');
+      entry.className = 'score-entry';
+      const heading = document.createElement('div');
+      heading.className = 'score-top';
+      const name = document.createElement('div');
+      name.className = 'score-name';
+      name.textContent = result.aspect;
+      const number = document.createElement('div');
+      number.className = 'score-number';
+      number.textContent = result.mean === null ? 'N/A' : `${result.mean.toFixed(2)} / 5`;
+      heading.append(name, number);
+      const detail = document.createElement('div');
+      detail.className = 'score-detail';
+      detail.textContent = `${result.scoredItems} of ${result.totalItems} items scored`;
+      entry.append(heading, detail);
+      if (result.mean !== null) {
+        const bar = document.createElement('div');
+        bar.className = 'score-meter';
+        bar.setAttribute('aria-hidden', 'true');
+        const fill = document.createElement('span');
+        fill.className = 'score-fill';
+        fill.style.width = `${result.mean / 5 * 100}%`;
+        bar.append(fill);
+        entry.append(bar);
+      }
+      list.append(entry);
+    });
+    drawRadar(results);
+    showView('results');
+    document.getElementById('resultsTitle').focus({preventScroll:true});
+  }
+
+  function downloadResponses() {
+    const results = resultsByAspect();
+    const exportData = {
+      instrument: 'Developer Soft-Ethical Preferences — Scenario-Based Questionnaire',
+      exportedAt: new Date().toISOString(),
+      responseScale: responseValues,
+      itemsPresented: order.length,
+      responses: order.map((item, presentationIndex) => ({
+        presentationOrder: presentationIndex + 1,
+        id: item.id,
+        aspect: item.aspect,
+        aspectDetail: item.aspectDetail,
+        keyType: item.keyType,
+        response: responses.get(item.internalKey),
+        score: scoreItem(item, responses.get(item.internalKey))
+      })),
+      aspectScores: results
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'developer_soft_ethical_profile.json';
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  document.getElementById('startBtn').addEventListener('click', start);
+  radios.forEach(input => input.addEventListener('change', () => {
+    if (!input.checked) return;
+    responses.set(order[currentIndex].internalKey, input.value);
+    document.getElementById('nextBtn').disabled = false;
+    document.getElementById('answeredCount').textContent = `${responses.size} of ${order.length} answered`;
+  }));
+  document.getElementById('backBtn').addEventListener('click', () => {
+    if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+  });
+  document.getElementById('nextBtn').addEventListener('click', () => {
+    if (!responses.has(order[currentIndex].internalKey)) return;
+    if (currentIndex === order.length - 1) { renderResults(); return; }
+    currentIndex++;
+    renderQuestion();
+  });
+  document.getElementById('reviewBtn').addEventListener('click', () => {
+    currentIndex = order.length - 1;
+    showView('questions');
+    renderQuestion();
+  });
+  document.getElementById('downloadBtn').addEventListener('click', downloadResponses);
+  document.getElementById('restartBtn').addEventListener('click', () => {
+    if (window.confirm('Start a new questionnaire? Your current answers will be discarded.')) start();
+  });
+</script>
+</body>
+</html>
