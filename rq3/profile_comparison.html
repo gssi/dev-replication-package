@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Developer Soft-Ethical Preferences - Profile Comparison</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --ink: #182436;
+      --muted: #617087;
+      --border: #dce3ed;
+      --blue: #3458cc;
+      --blue-dark: #2948ad;
+      --blue-light: #eef2ff;
+      --teal: #169b97;
+      --radius: 17px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { min-width: 320px; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); line-height: 1.6; }
+    button { font: inherit; }
+    button:focus-visible, input:focus-visible + .choice-tile { outline: 3px solid #7b9bf3; outline-offset: 3px; }
+    .app { max-width: 1060px; margin: 0 auto; padding: 28px 24px 72px; }
+    .site-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; padding-bottom: 24px; }
+    .identity { display: flex; align-items: center; gap: 13px; }
+    .mark { width: 43px; height: 43px; border-radius: 13px; background: #1c356b; color: white; display: grid; place-items: center; font-weight: 800; font-size: 20px; letter-spacing: -1px; }
+    .site-title { font-size: 16px; font-weight: 800; line-height: 1.3; letter-spacing: -.02em; }
+    .site-subtitle { font-size: 12px; color: var(--muted); letter-spacing: .02em; }
+    .privacy-chip { font-size: 12px; font-weight: 700; color: #356f69; background: #e6f5f1; border: 1px solid #c9e9df; padding: 7px 13px; border-radius: 999px; }
+    .panel { border: 1px solid var(--border); background: var(--card); border-radius: 21px; box-shadow: 0 12px 34px rgba(24,42,66,.045); }
+    .eyebrow { text-transform: uppercase; font-weight: 800; letter-spacing: .13em; font-size: 11px; color: var(--blue); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: clamp(30px, 4vw, 44px); letter-spacing: -.04em; line-height: 1.17; font-weight: 780; }
+    h2 { font-size: clamp(24px, 3.1vw, 34px); letter-spacing: -.028em; line-height: 1.22; }
+    h3 { font-size: 17px; letter-spacing: -.012em; }
+    strong { color: #1e2d42; }
+    .intro { padding: clamp(24px,5vw,54px); }
+    .intro-heading { max-width: 780px; margin: 16px 0 20px; }
+    .intro-lead { max-width: 780px; font-size: 17px; color: #40536e; }
+    .instructions { max-width: 840px; border-top: 1px solid var(--border); margin-top: 30px; padding-top: 28px; font-size: 15px; }
+    .instructions p { margin-bottom: 19px; }
+    .instructions p:last-child { margin-bottom: 0; }
+    .important { background: #f2f6ff; border-left: 4px solid var(--blue); border-radius: 0 11px 11px 0; padding: 15px 18px; margin: 27px 0 !important; }
+    .lead-question { font-weight: 800; font-style: italic; font-size: 18px; }
+    .intro-footer { margin-top: 34px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
+    .helper { color: var(--muted); font-size: 13px; }
+    .btn { cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border-radius: 11px; min-height: 47px; padding: 10px 20px; border: 1px solid var(--border); font-weight: 750; background: #fff; color: var(--ink); transition: background .15s ease, transform .15s ease; }
+    .btn:hover:not(:disabled) { background: #f6f8fd; }
+    .btn:active:not(:disabled) { transform: translateY(1px); }
+    .btn-primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .btn-primary:hover:not(:disabled) { background: var(--blue-dark); }
+    .btn:disabled { opacity: .46; cursor: not-allowed; }
+    [hidden] { display: none !important; }
+    .q-shell { max-width: 860px; margin: 0 auto; }
+    .q-heading { margin: 4px 0 20px; }
+    .q-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; align-items: end; margin: 12px 0; }
+    .q-index { font-size: 22px; line-height: 1.25; font-weight: 790; letter-spacing: -.025em; }
+    .q-count { font-size: 13px; color: var(--muted); }
+    .progress-track { height: 7px; width: 100%; border-radius: 99px; overflow: hidden; background: #dfe6f1; }
+    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg,var(--blue),var(--teal)); border-radius: 99px; transition: width .18s ease; }
+    .question-panel { padding: clamp(23px, 4.5vw, 42px); }
+    .section-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 850; color: #697891; }
+    .scenario-text { font-size: clamp(16px, 2.2vw, 19px); line-height: 1.78; margin: 14px 0 28px; white-space: pre-line; }
+    .statement-section { border-top: 1px solid var(--border); padding-top: 28px; }
+    .statement { margin: 13px 0 28px; padding: 15px 22px; background: #eef2fc; border-left: 4px solid var(--blue); border-radius: 0 11px 11px 0; font-size: clamp(17px, 2.3vw, 20px); line-height: 1.55; font-weight: 680; color: #243a6e; }
+    .choice-question { font-weight: 800; margin: 0 0 14px; font-size: 15px; }
+    .choices { border: 0; padding: 0; margin: 0; min-width: 0; display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 10px; }
+    .choice-option { display: block; position: relative; cursor: pointer; }
+    .choice-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .choice-tile { min-height: 77px; display: flex; flex-direction: column; gap: 8px; align-items: center; justify-content: center; text-align: center; font-weight: 650; font-size: 13px; line-height: 1.3; border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 8px; background: white; transition: all .15s ease; }
+    .choice-tile::before { content: ''; display: block; width: 15px; height: 15px; border: 1.5px solid #9aabc5; border-radius: 50%; background: #fff; flex: none; }
+    .choice-option:hover .choice-tile { border-color: #9cadde; background: #f8faff; }
+    .choice-input:checked + .choice-tile { border-color: var(--blue); background: var(--blue-light); box-shadow: inset 0 0 0 1px var(--blue); color: #203c95; }
+    .choice-input:checked + .choice-tile::before { background: var(--blue); border: 4px solid var(--blue); box-shadow: inset 0 0 0 3px white; }
+    .choice-na { grid-column: 1 / -1; }
+    .choice-na .choice-tile { min-height: 51px; flex-direction: row; justify-content: flex-start; padding: 12px 17px; font-weight: 600; }
+    .q-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+    .footer { margin: 22px 0 0; text-align: center; color: var(--muted); font-size: 12px; }
+    .results { padding: clamp(22px, 4.5vw, 45px); }
+    .results-header { margin-bottom: 30px; max-width: 760px; }
+    .results-header p { font-size: 15px; color: var(--muted); margin-bottom: 0; }
+    .result-overview { display: flex; flex-wrap: wrap; gap: 11px; margin: 0 0 28px; }
+    .stat { border: 1px solid var(--border); background: #fafcff; padding: 14px 18px; border-radius: 12px; min-width: 135px; }
+    .stat-number { font-weight: 800; font-size: 27px; line-height: 1.2; letter-spacing: -.035em; }
+    .stat-label { font-size: 12px; color: var(--muted); }
+    .result-layout { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(280px,.85fr); gap: 21px; align-items: start; }
+    .chart-panel, .scores-panel { border: 1px solid var(--border); border-radius: 15px; background: #fcfdff; padding: 20px; }
+    .chart-panel h3, .scores-panel h3 { margin-bottom: 0; }
+    .chart-panel svg { width: 100%; height: auto; display: block; overflow: visible; }
+    .chart-note { color: var(--muted); font-size: 12px; margin: -3px 4px 4px; }
+    .score-entry { border-bottom: 1px solid var(--border); padding: 17px 0; }
+    .score-entry:last-child { border-bottom: 0; }
+    .score-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .score-name { font-weight: 740; font-size: 14px; line-height: 1.4; }
+    .score-number { font-weight: 830; color: var(--blue); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .score-detail { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .score-meter { margin-top: 9px; background: #e6ebf5; height: 7px; border-radius: 10px; overflow: hidden; }
+    .score-fill { display: block; height: 100%; background: var(--blue); border-radius: 10px; }
+    .results-explain { border-top: 1px solid var(--border); margin-top: 27px; padding-top: 23px; max-width: 900px; color: #45546b; font-size: 14px; }
+    .results-explain p { margin-bottom: 12px; }
+    .rating-select { font: inherit; padding: 7px 12px; border: 1px solid var(--border); border-radius: 8px; background: white; color: var(--ink); }
+    .rating-select:focus-visible { outline: 3px solid #7b9bf3; outline-offset: 3px; }
+    .chart-legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; margin-top: 12px; }
+    .legend-swatch { display: inline-block; width: 22px; border-top: 3px solid var(--blue); margin-right: 6px; vertical-align: middle; }
+    .legend-self { border-color: #127c78; border-top-style: dashed; }
+    .result-actions { margin-top: 23px; display: flex; flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 860px) {
+      .result-layout { grid-template-columns: 1fr; }
+      .chart-panel { max-width: 600px; width: 100%; margin: 0 auto; }
+    }
+    @media (max-width: 680px) {
+      .app { padding: 15px 13px 42px; }
+      .site-header { padding: 5px 2px 18px; }
+      .privacy-chip { display: none; }
+      .choices { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .choice-na { grid-column: 1 / -1; }
+      .choice-tile { min-height: 67px; }
+      .results { padding: 23px 16px; }
+      .chart-panel, .scores-panel { padding: 15px 11px; }
+      .q-nav .btn { flex: 1; }
+      .intro-footer .btn { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0s !important; scroll-behavior: auto !important; } }
+  
+    a.btn { text-decoration: none; }
+    input[type="file"] { max-width: 100%; font: inherit; }
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="site-header">
+    <div class="identity">
+      <div class="mark" aria-hidden="true">&lt;/&gt;</div>
+      <div><div class="site-title">Developer Soft-Ethical Preferences</div><div class="site-subtitle">Scenario-based elicitation instrument</div></div>
+    </div>
+    <div class="privacy-chip">Local &amp; private · no data sent</div>
+  </header>
+
+  <main>
+    <section id="comparisonView" class="panel results" aria-labelledby="comparisonTitle">
+      <div class="results-header">
+        <div class="eyebrow">Profile comparison</div>
+        <h1 id="comparisonTitle" style="margin:12px 0 15px" tabindex="-1">Your preferences, side by side</h1>
+        <p>For each aspect, select your self-declared preference from 1 (lower alignment) to 5 (higher alignment). The radar updates as you select values, overlaying your self-declaration on your questionnaire profile. Unselected aspects are left blank.</p>
+      </div>
+      <div class="score-entry">
+        <label for="profileUpload"><strong>Upload questionnaire responses (JSON)</strong></label>
+        <p class="helper" id="uploadHelp">Choose the JSON file downloaded from the questionnaire. Your file is processed locally.</p>
+        <input id="profileUpload" type="file" accept=".json,application/json" aria-describedby="uploadHelp uploadStatus">
+        <p id="uploadStatus" class="helper" role="status" aria-live="polite">Upload a questionnaire export to compare your profiles.</p>
+      </div>
+      <div class="score-entry">
+        <label for="selfProfileUpload"><strong>Upload self-declared preferences (JSON)</strong></label>
+        <p class="helper" id="selfUploadHelp">Upload a self-declared profile saved with the button below. Imported ratings remain editable.</p>
+        <input id="selfProfileUpload" type="file" accept=".json,application/json" aria-describedby="selfUploadHelp selfUploadStatus">
+        <p id="selfUploadStatus" class="helper" role="status" aria-live="polite">Set your ratings manually or upload a saved self-declaration.</p>
+        <button class="btn" id="downloadSelfBtn" type="button">↓ Download self-declared profile (JSON)</button>
+      </div>
+      <div class="result-layout">
+        <section class="chart-panel" aria-labelledby="comparisonChartTitle">
+          <h3 id="comparisonChartTitle">Questionnaire and self-declaration</h3>
+          <div class="chart-legend"><span><i class="legend-swatch" aria-hidden="true"></i>Questionnaire</span><span><i class="legend-swatch legend-self" aria-hidden="true"></i>Self-declared</span></div>
+          <svg id="comparisonRadar" viewBox="0 0 660 560" role="img" aria-label="Radar chart comparing questionnaire and self-declared scores"></svg>
+          <p class="chart-note">Both profiles use the same 1–5 scale. Missing scores are omitted. Differences describe your responses; they are not a measure of ethical character.</p>
+        </section>
+        <section class="scores-panel" aria-labelledby="selfRatingsTitle">
+          <h3 id="selfRatingsTitle">Self-declared preferences</h3>
+          <div id="selfRatings"></div>
+        </section>
+      </div>
+      <div class="result-actions"><a class="btn" href="instrument_proof_of_concept.html">← Open questionnaire</a></div>
+    </section>
+  </main>
+</div>
+<script>
+  const aspects = ["Fairness", "Inclusiveness", "Privacy", "Transparency and explainability", "Traceability", "Resource Consumption"];
+  const selfRatings = new Map();
+  let questionnaireScores = aspects.map(aspect => ({aspect, mean: null}));
+
+  function validateProfile(data) {
+    if (!data || !Array.isArray(data.aspectScores) || data.aspectScores.length !== aspects.length) {
+      throw new Error('Choose a profile JSON containing an aspectScores array with all six aspects.');
+    }
+    return aspects.map(aspect => {
+      const matches = data.aspectScores.filter(score => score && score.aspect === aspect);
+      if (matches.length !== 1) throw new Error(`Missing or duplicate aspect: ${aspect}.`);
+      const mean = matches[0].mean;
+      if (mean !== null && (typeof mean !== 'number' || !Number.isFinite(mean) || mean < 1 || mean > 5)) {
+        throw new Error(`Invalid score for ${aspect}: expected a value from 1 to 5 or null.`);
+      }
+      return {aspect, mean};
+    });
+  }
+
+  function loadProfile(data, message) {
+    const validated = validateProfile(data);
+    questionnaireScores = validated;
+    renderComparison();
+    document.getElementById('uploadStatus').textContent = message;
+  }
+
+  function selfDeclaredProfile() {
+    return {
+      profileType: 'self-declared',
+      exportedAt: new Date().toISOString(),
+      aspectScores: aspects.map(aspect => ({aspect, mean: selfRatings.get(aspect) ?? null}))
+    };
+  }
+
+  function loadSelfProfile(data) {
+    const validated = validateProfile(data);
+    if (validated.some(score => score.mean !== null && !Number.isInteger(score.mean))) {
+      throw new Error('Self-declared ratings must be whole numbers from 1 to 5 or null for unselected aspects.');
+    }
+    selfRatings.clear();
+    validated.forEach(score => {
+      if (score.mean !== null) selfRatings.set(score.aspect, score.mean);
+    });
+    renderComparison();
+  }
+
+  document.getElementById('downloadSelfBtn').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(selfDeclaredProfile(), null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'self_declared_profile.json';
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  let selfUploadVersion = 0;
+  document.getElementById('selfProfileUpload').addEventListener('change', async event => {
+    const version = ++selfUploadVersion;
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      const contents = await file.text();
+      if (version !== selfUploadVersion) return;
+      loadSelfProfile(JSON.parse(contents));
+      document.getElementById('selfUploadStatus').textContent = `Loaded ${file.name}. Your self-declared profile is shown in dashed teal.`;
+    } catch (error) {
+      document.getElementById('selfUploadStatus').textContent = `Could not load this file. ${error.message} Your self-declared ratings have not changed.`;
+    }
+  });
+
+  function svgNode(name, attributes = {}, text = '') {
+    const node = document.createElementNS('http://www.w3.org/2000/svg', name);
+    Object.entries(attributes).forEach(([key, val]) => node.setAttribute(key, String(val)));
+    if (text) node.textContent = text;
+    return node;
+  }
+
+  function drawRadar(results, targetId = 'radarChart', selfDeclared = null) {
+    const svg = document.getElementById(targetId);
+    svg.replaceChildren();
+    const cx = 330, cy = 270, radius = 174, n = results.length;
+    const angles = results.map((_, i) => -Math.PI / 2 + 2 * Math.PI * i / n);
+    const point = (a, r) => [cx + Math.cos(a) * r, cy + Math.sin(a) * r];
+    const pointsText = pairs => pairs.map(pair => pair.map(n => n.toFixed(2)).join(',')).join(' ');
+
+    // Reference rings and axis lines.
+    for (let level = 1; level <= 5; level++) {
+      const ring = angles.map(a => point(a, radius * level / 5));
+      svg.append(svgNode('polygon', {
+        points: pointsText(ring),
+        fill: level % 2 ? '#f0f4fc' : '#f9fbff',
+        stroke: '#d3dceb', 'stroke-width': '1'
+      }));
+    }
+    angles.forEach(a => {
+      const [x,y] = point(a, radius);
+      svg.append(svgNode('line', {x1: cx, y1: cy, x2: x, y2: y, stroke: '#cbd5e5', 'stroke-width': '1'}));
+    });
+    for (let level = 1; level <= 5; level++) {
+      svg.append(svgNode('text', {
+        x: cx + 9, y: cy - radius * level / 5 + 4,
+        'font-size': 13, fill: '#8997ae', 'font-weight': 650
+      }, String(level)));
+    }
+
+    const drawSeries = (series, color, label, dashed = false) => {
+    const values = series.map((result, i) =>
+      result.mean === null ? null : point(angles[i], radius * result.mean / 5));
+    if (values.every(value => value !== null)) {
+      svg.append(svgNode('polygon', {
+        points: pointsText(values), fill: color, 'fill-opacity': '.2',
+        stroke: color, 'stroke-width': '3', 'stroke-dasharray': dashed ? '7 5' : 'none', 'stroke-linejoin': 'round'
+      }));
+    } else {
+      // Draw only segments joining adjacent scored aspects, never invent zeroes for missing data.
+      for (let i = 0; i < n; i++) {
+        const next = (i + 1) % n;
+        if (values[i] !== null && values[next] !== null) {
+          svg.append(svgNode('line', {
+            x1: values[i][0], y1: values[i][1],
+            x2: values[next][0], y2: values[next][1],
+            stroke: color, 'stroke-width': '3', 'stroke-dasharray': dashed ? '7 5' : 'none'
+          }));
+        }
+      }
+    }
+
+    values.forEach((value, i) => {
+      if (value === null) return;
+      const marker = svgNode('circle', {
+        cx: value[0], cy: value[1], r: 6, fill: color,
+        stroke: 'white', 'stroke-width': 2.5
+      });
+      marker.append(svgNode('title', {}, `${label} — ${series[i].aspect}: ${series[i].mean.toFixed(2)} / 5`));
+      svg.append(marker);
+    });
+
+    };
+    drawSeries(results, '#3458cc', 'Questionnaire');
+    if (selfDeclared) drawSeries(selfDeclared, '#127c78', 'Self-declared', true);
+
+    const labelLines = {
+      'Fairness': ['Fairness'],
+      'Inclusiveness': ['Inclusiveness'],
+      'Privacy': ['Privacy'],
+      'Transparency and explainability': ['Transparency &', 'explainability'],
+      'Traceability': ['Traceability'],
+      'Resource Consumption': ['Resource', 'consumption']
+    };
+    results.forEach((result, index) => {
+      const [x, y] = point(angles[index], radius + 59);
+      const horizontal = Math.cos(angles[index]);
+      const anchor = horizontal > .3 ? 'start' : horizontal < -.3 ? 'end' : 'middle';
+      const lines = labelLines[result.aspect] || [result.aspect];
+      const title = svgNode('text', {
+        x, y: y - ((lines.length - 1) * 8),
+        'text-anchor': anchor, fill: result.mean === null ? '#9eabbc' : '#34445f',
+        'font-size': 15, 'font-weight': 700
+      });
+      lines.forEach((line, k) => {
+        const textSpan = svgNode('tspan', {x, dy: k === 0 ? 0 : 18}, line);
+        title.append(textSpan);
+      });
+      svg.append(title);
+    });
+    const caption = results.map(result => `${result.aspect}: ${result.mean === null ? 'no score' : result.mean.toFixed(2) + ' out of 5'}`).join('; ');
+    const selfCaption = selfDeclared ? '; Self-declared: ' + selfDeclared.map(result => `${result.aspect}: ${result.mean === null ? 'not selected' : result.mean + ' out of 5'}`).join('; ') : '';
+    svg.setAttribute('aria-label', `Radar chart — Questionnaire: ${caption}${selfCaption}`);
+  }
+
+  function renderComparison() {
+    const results = questionnaireScores;
+    const list = document.getElementById('selfRatings');
+    list.replaceChildren();
+    const updateChart = () => drawRadar(results, 'comparisonRadar', results.map(result => ({
+      aspect: result.aspect, mean: selfRatings.get(result.aspect) ?? null
+    })));
+    results.forEach((result, index) => {
+      const entry = document.createElement('div');
+      entry.className = 'score-entry';
+      const heading = document.createElement('div');
+      heading.className = 'score-top';
+      const label = document.createElement('label');
+      label.className = 'score-name';
+      label.htmlFor = `self-rating-${index}`;
+      label.textContent = result.aspect;
+      const select = document.createElement('select');
+      select.id = label.htmlFor;
+      select.className = 'rating-select';
+      select.add(new Option('Select…', ''));
+      for (let value = 1; value <= 5; value++) select.add(new Option(String(value), String(value)));
+      select.value = String(selfRatings.get(result.aspect) ?? '');
+      select.addEventListener('change', () => {
+        if (select.value === '') selfRatings.delete(result.aspect);
+        else selfRatings.set(result.aspect, Number(select.value));
+        updateChart();
+      });
+      const detail = document.createElement('div');
+      detail.className = 'score-detail';
+      detail.textContent = `Questionnaire: ${result.mean === null ? 'no score' : result.mean.toFixed(2) + ' / 5'}`;
+      heading.append(label, select);
+      entry.append(heading, detail);
+      list.append(entry);
+    });
+    updateChart();
+  }
+
+
+  let uploadVersion = 0;
+  document.getElementById('profileUpload').addEventListener('change', async event => {
+    const version = ++uploadVersion;
+    const file = event.target.files[0];
+    if (!file) return;
+    try {
+      const contents = await file.text();
+      if (version !== uploadVersion) return;
+      loadProfile(JSON.parse(contents), `Loaded ${file.name}. Your questionnaire profile is shown in blue.`);
+    } catch (error) {
+      document.getElementById('uploadStatus').textContent = `Could not load this file. ${error.message} The displayed profile has not changed.`;
+    }
+  });
+  renderComparison();
+  if (window.location.hash.startsWith('#profile=')) {
+    try {
+      loadProfile(JSON.parse(decodeURIComponent(window.location.hash.slice(9))), 'Loaded your current questionnaire profile. You can also upload an exported JSON file.');
+    } catch (error) {
+      document.getElementById('uploadStatus').textContent = `Could not load the linked profile. ${error.message} Please upload a questionnaire export.`;
+    }
+  }
+</script>
+</body>
+</html>

@@ -213,6 +213,7 @@
       </div>
       <div class="result-actions">
         <button class="btn btn-primary" id="downloadBtn" type="button">↓ Download responses (JSON)</button>
+        <button class="btn" id="compareBtn" type="button">Compare with self-declared profile →</button>
         <button class="btn" id="reviewBtn" type="button">← Review answers</button>
         <button class="btn" id="restartBtn" type="button">Start again</button>
       </div>
@@ -656,6 +657,11 @@
     document.getElementById('resultsTitle').focus({preventScroll:true});
   }
 
+  function openComparison() {
+    const profile = {aspectScores: resultsByAspect()};
+    window.location.href = 'profile_comparison.html#profile=' + encodeURIComponent(JSON.stringify(profile));
+  }
+
   function downloadResponses() {
     const results = resultsByAspect();
     const exportData = {
@@ -706,6 +712,7 @@
     showView('questions');
     renderQuestion();
   });
+  document.getElementById('compareBtn').addEventListener('click', openComparison);
   document.getElementById('downloadBtn').addEventListener('click', downloadResponses);
   document.getElementById('restartBtn').addEventListener('click', () => {
     if (window.confirm('Start a new questionnaire? Your current answers will be discarded.')) start();
