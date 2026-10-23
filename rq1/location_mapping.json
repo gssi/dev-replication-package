@@ -1,0 +1,346 @@
+{
+  "L'Aquila": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "L'Aquila (Italy)": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "L'Aquila (Italia)": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "Bologna (Italy)": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "Santarcangelo di Romagna": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "Senigallia (Italy)": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "Milan": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "Italy": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "Naples (Italy)": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "Camerano": {
+    "country": "Italy",
+    "continent": "Europe"
+  },
+  "São Paulo (Brazil)": {
+    "country": "Brazil",
+    "continent": "South America"
+  },
+  "India": {
+    "country": "India",
+    "continent": "Asia"
+  },
+  "Mumbai (India)": {
+    "country": "India",
+    "continent": "Asia"
+  },
+  "Delhi (India)": {
+    "country": "India",
+    "continent": "Asia"
+  },
+  "Jaipur": {
+    "country": "India",
+    "continent": "Asia"
+  },
+  "Bangalore (India)": {
+    "country": "India",
+    "continent": "Asia"
+  },
+  "Hyderabad (India)": {
+    "country": "India",
+    "continent": "Asia"
+  },
+  "Johannesburg (South Africa)": {
+    "country": "South Africa",
+    "continent": "Africa"
+  },
+  "South Africa": {
+    "country": "South Africa",
+    "continent": "Africa"
+  },
+  "Pretoria(South Africa)": {
+    "country": "South Africa",
+    "continent": "Africa"
+  },
+  "Cape Town": {
+    "country": "South Africa",
+    "continent": "Africa"
+  },
+  "Aarhus (Denmark)": {
+    "country": "Denmark",
+    "continent": "Europe"
+  },
+  "Denmark": {
+    "country": "Denmark",
+    "continent": "Europe"
+  },
+  "Amsterdam (The Netherlands)": {
+    "country": "Netherlands",
+    "continent": "Europe"
+  },
+  "Amsterdam (Netherlands)": {
+    "country": "Netherlands",
+    "continent": "Europe"
+  },
+  "United States": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "New York (USA)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "New Jersey, United States of America": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "California (USA)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Ashburn (United States)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Unites states of America": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "California, USA": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Miami (USA)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Mays Landing (United States)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Torrance (United States)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Bentonville, Arkansas, Estados Unidos": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Atlanta (United States)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Denver": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Fort Worth (USA)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "NewJersey {United States]": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "San Bernardino (United States0": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Detroit": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Falls Church (USA)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Seattle, Washington": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Wilmington (United States)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Austin (US)": {
+    "country": "United States",
+    "continent": "North America"
+  },
+  "Cairo(Egypt)": {
+    "country": "Egypt",
+    "continent": "Africa"
+  },
+  "Tanta(Egypt)": {
+    "country": "Egypt",
+    "continent": "Africa"
+  },
+  "Alexandria (Egypt)": {
+    "country": "Egypt",
+    "continent": "Africa"
+  },
+  "Cairo": {
+    "country": "Egypt",
+    "continent": "Africa"
+  },
+  "Nairobi (Kenya)": {
+    "country": "Kenya",
+    "continent": "Africa"
+  },
+  "Vancouver (Canada)": {
+    "country": "Canada",
+    "continent": "North America"
+  },
+  "Toronto (Canada)": {
+    "country": "Canada",
+    "continent": "North America"
+  },
+  "Winnipeg": {
+    "country": "Canada",
+    "continent": "North America"
+  },
+  "Toronto(Canada)": {
+    "country": "Canada",
+    "continent": "North America"
+  },
+  "Saint John (Canada)": {
+    "country": "Canada",
+    "continent": "North America"
+  },
+  "Montreal (Canada)": {
+    "country": "Canada",
+    "continent": "North America"
+  },
+  "Canada": {
+    "country": "Canada",
+    "continent": "North America"
+  },
+  "Japan": {
+    "country": "Japan",
+    "continent": "Asia"
+  },
+  "Yokohama, Japan": {
+    "country": "Japan",
+    "continent": "Asia"
+  },
+  "Palaiseau (France)": {
+    "country": "France",
+    "continent": "Europe"
+  },
+  "Angers (France)": {
+    "country": "France",
+    "continent": "Europe"
+  },
+  "Ho Chi Minh City (Vietnam)": {
+    "country": "Vietnam",
+    "continent": "Asia"
+  },
+  "Ho Chi Minh City": {
+    "country": "Vietnam",
+    "continent": "Asia"
+  },
+  "Hanoi (Vietnam)": {
+    "country": "Vietnam",
+    "continent": "Asia"
+  },
+  "London (UK)": {
+    "country": "United Kingdom",
+    "continent": "Europe"
+  },
+  "london uk": {
+    "country": "United Kingdom",
+    "continent": "Europe"
+  },
+  "n/a, UK": {
+    "country": "United Kingdom",
+    "continent": "Europe"
+  },
+  "United Kingdom": {
+    "country": "United Kingdom",
+    "continent": "Europe"
+  },
+  "Hamburg (Germany)": {
+    "country": "Germany",
+    "continent": "Europe"
+  },
+  "Kiel(Germany)": {
+    "country": "Germany",
+    "continent": "Europe"
+  },
+  "Romania": {
+    "country": "Romania",
+    "continent": "Europe"
+  },
+  "Dublin, Ireland": {
+    "country": "Ireland",
+    "continent": "Europe"
+  },
+  "Santiago (Chile)": {
+    "country": "Chile",
+    "continent": "South America"
+  },
+  "Ciudad Juarez, Mexico": {
+    "country": "Mexico",
+    "continent": "North America"
+  },
+  "MONTERREY, MEXICO": {
+    "country": "Mexico",
+    "continent": "North America"
+  },
+  "Queretaro Mexico": {
+    "country": "Mexico",
+    "continent": "North America"
+  },
+  "Querétaro": {
+    "country": "Mexico",
+    "continent": "North America"
+  },
+  "Ciudad de México (México)": {
+    "country": "Mexico",
+    "continent": "North America"
+  },
+  "Barcelona (Spain)": {
+    "country": "Spain",
+    "continent": "Europe"
+  },
+  "Riyadh": {
+    "country": "Saudi Arabia",
+    "continent": "Asia"
+  },
+  "south of korea seoul": {
+    "country": "South Korea",
+    "continent": "Asia"
+  },
+  "Seoul (South Korea)": {
+    "country": "South Korea",
+    "continent": "Asia"
+  },
+  "Melbourne (Australia)": {
+    "country": "Australia",
+    "continent": "Oceania"
+  },
+  "Buenos Aires, Argentina": {
+    "country": "Argentina",
+    "continent": "South America"
+  },
+  "Ai in farm technology": {
+    "country": null,
+    "continent": null
+  }
+}
