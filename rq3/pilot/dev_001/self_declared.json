@@ -1,0 +1,30 @@
+{
+  "profileType": "self-declared",
+  "exportedAt": "2026-10-23T16:07:08.412Z",
+  "aspectScores": [
+    {
+      "aspect": "Fairness",
+      "mean": 2
+    },
+    {
+      "aspect": "Inclusiveness",
+      "mean": 2
+    },
+    {
+      "aspect": "Privacy",
+      "mean": 3
+    },
+    {
+      "aspect": "Transparency and explainability",
+      "mean": 5
+    },
+    {
+      "aspect": "Traceability",
+      "mean": 3
+    },
+    {
+      "aspect": "Resource Consumption",
+      "mean": 5
+    }
+  ]
+}
