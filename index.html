@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Findings, study materials, and a scenario-based instrument for investigating developers’ soft-ethical preferences in the age of LLM-based coding assistants.">
+  <title>Investigating Developers’ Soft-Ethical Preferences in the Age of LLM-Based Coding Assistants</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --ink: #182436;
+      --muted: #617087;
+      --border: #dce3ed;
+      --blue: #3458cc;
+      --blue-dark: #2948ad;
+      --blue-light: #eef2ff;
+      --teal: #169b97;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.65; }
+    a { color: var(--blue); text-underline-offset: 3px; }
+    a:hover { color: var(--blue-dark); }
+    a:focus-visible, summary:focus-visible { outline: 3px solid #7b9bf3; outline-offset: 4px; border-radius: 4px; }
+    .skip-link { position: absolute; top: -100px; left: 20px; z-index: 2; padding: 12px 20px; background: white; }
+    .skip-link:focus { top: 12px; }
+    .app { max-width: 1120px; margin: 0 auto; padding: 28px 24px 40px; }
+    .site-header, .identity, .nav, .actions { display: flex; align-items: center; flex-wrap: wrap; }
+    .site-header { justify-content: space-between; gap: 20px; padding-bottom: 25px; }
+    .identity { gap: 13px; }
+    .mark { width: 43px; height: 43px; border-radius: 13px; background: #1c356b; color: white; display: grid; place-items: center; font-weight: 800; font-size: 20px; letter-spacing: -1px; }
+    .site-title { font-size: 16px; font-weight: 800; line-height: 1.3; letter-spacing: -.02em; }
+    .site-subtitle { font-size: 12px; color: var(--muted); }
+    .nav { gap: 7px 20px; font-size: 13px; font-weight: 700; }
+    .nav a { color: #40536e; text-decoration: none; }
+    .nav a:hover { color: var(--blue); text-decoration: underline; }
+    .panel { border: 1px solid var(--border); background: var(--card); border-radius: 21px; box-shadow: 0 12px 34px rgba(24,42,66,.045); }
+    .hero { padding: clamp(25px, 5vw, 54px); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--blue), var(--teal)); }
+    .eyebrow { text-transform: uppercase; font-weight: 800; letter-spacing: .13em; font-size: 11px; color: var(--blue); }
+    h1, h2, h3, p, figure { margin-top: 0; }
+    figure { margin: 0; }
+    h1 { max-width: 880px; font-size: clamp(31px, 4.2vw, 47px); letter-spacing: -.04em; line-height: 1.16; margin: 17px 0 23px; font-weight: 780; }
+    h2 { font-size: clamp(25px, 3vw, 33px); letter-spacing: -.028em; line-height: 1.25; margin: 10px 0 15px; }
+    h3 { font-size: 17px; letter-spacing: -.012em; line-height: 1.4; margin-bottom: 10px; }
+    p { margin-bottom: 15px; }
+    .lead { max-width: 820px; font-size: 18px; line-height: 1.7; color: #40536e; }
+    .definition { max-width: 850px; margin: 25px 0 28px; padding-left: 18px; border-left: 3px solid var(--teal); color: #45546b; font-size: 14px; }
+    .actions { gap: 12px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; border-radius: 11px; min-height: 47px; padding: 10px 19px; border: 1px solid var(--border); font-size: 14px; font-weight: 750; background: white; color: var(--ink); text-decoration: none; transition: background .15s ease; }
+    .btn:hover { background: #f6f8fd; color: var(--ink); }
+    .btn-primary { background: var(--blue); border-color: var(--blue); color: white; }
+    .btn-primary:hover { background: var(--blue-dark); color: white; }
+    .survey-context { margin-bottom: 22px; }
+    .rq-answers { margin-top: 22px; }
+    .answer-list { padding-left: 22px; margin: 0; color: #45546b; font-size: 14px; }
+    .answer-list li { padding-left: 4px; margin-top: 16px; }
+    .answer-list strong { color: var(--ink); }
+    .section { margin-top: 52px; }
+    .section-heading { max-width: 860px; margin-bottom: 24px; }
+    .section-heading p { color: #45546b; font-size: 15px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+    .stat { padding: 23px 20px; border-radius: 15px; background: white; border: 1px solid var(--border); }
+    .stat-number { color: var(--blue); font-size: 34px; font-weight: 800; letter-spacing: -.04em; line-height: 1.2; }
+    .stat-label { font-size: 13px; font-weight: 700; line-height: 1.5; margin-top: 10px; }
+    .stat-detail { font-size: 12px; color: var(--muted); margin-top: 5px; }
+    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .card { padding: 27px; }
+    .card p, .aspect p, .insight p { font-size: 14px; color: #45546b; }
+    .card p:last-child { margin-bottom: 0; }
+    .chart-note, .source-note { font-size: 12px; color: var(--muted); }
+    .chart-note { margin: 8px 0 20px; }
+    .bars { display: grid; gap: 14px; }
+    .bar-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; font-size: 13px; margin-bottom: 5px; }
+    .bar-heading span:last-child { white-space: nowrap; color: #45546b; font-variant-numeric: tabular-nums; }
+    .track { height: 8px; border-radius: 99px; background: #e9edf5; overflow: hidden; }
+    .fill { display: block; height: 100%; background: var(--blue); border-radius: inherit; }
+    .teal .fill { background: var(--teal); }
+    .mini-finding { display: grid; grid-template-columns: 75px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+    .mini-finding:last-child { border-bottom: 0; padding-bottom: 0; }
+    .mini-finding strong { color: var(--blue); font-size: 22px; font-variant-numeric: tabular-nums; letter-spacing: -.03em; }
+    .mini-finding p { margin: 0; font-size: 13px; }
+    .frequencies { margin: 20px 0 0; padding: 28px; }
+    .chart-top { display: flex; justify-content: space-between; gap: 15px; align-items: start; flex-wrap: wrap; }
+    .legend { display: flex; gap: 10px 16px; list-style: none; padding: 0; margin: 3px 0 20px; flex-wrap: wrap; font-size: 12px; color: #45546b; }
+    .legend li { display: flex; align-items: center; gap: 6px; }
+    .swatch { width: 12px; height: 12px; border-radius: 3px; }
+    .never { background: #dea09a; }
+    .rarely { background: #f5d08c; }
+    .sometimes { background: #d2d2d2; }
+    .often { background: #a4d7d2; }
+    .always { background: #8dabcc; }
+    .frequency-rows { display: grid; gap: 16px; }
+    .frequency-row { display: grid; grid-template-columns: 190px 1fr 130px; gap: 18px; align-items: center; font-size: 13px; }
+    .stack { display: flex; height: 20px; border-radius: 5px; overflow: hidden; background: #e9edf5; }
+    .stack span { height: 100%; border-right: 1px solid white; }
+    .frequency-total { text-align: right; color: #45546b; font-size: 12px; font-variant-numeric: tabular-nums; }
+    .frequency-total strong { color: #29486d; font-size: 14px; }
+    .callout { margin-top: 22px; padding: 21px 24px; border-left: 4px solid var(--blue); border-radius: 0 12px 12px 0; background: var(--blue-light); color: #34486a; font-size: 14px; }
+    .callout p:last-child { margin-bottom: 0; }
+    .source-note { margin: 14px 0 0; }
+    details { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; }
+    summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--blue); }
+    .table-scroll { overflow-x: auto; margin-top: 15px; }
+    table { border-collapse: collapse; width: 100%; font-size: 12px; text-align: left; }
+    caption { text-align: left; color: var(--muted); margin-bottom: 10px; }
+    th, td { padding: 10px 9px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+    thead th { background: #f6f8fc; }
+    tbody th { font-weight: 650; }
+    .extra-stats { margin-top: 15px; }
+    .extra-stats h3 { font-size: 15px; margin-top: 20px; }
+    .compact-list { padding-left: 20px; font-size: 13px; color: #45546b; }
+    .compact-list li { margin-bottom: 7px; }
+    .aspects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .aspect { padding: 25px; border-radius: 17px; border: 1px solid var(--border); background: white; }
+    .aspect-number { display: inline-grid; place-items: center; width: 30px; height: 30px; background: var(--blue-light); color: var(--blue); border-radius: 9px; font-size: 12px; font-weight: 800; margin-bottom: 16px; }
+    .aspect h3 { min-height: 48px; margin-bottom: 10px; }
+    .example { margin-top: 17px; border-top: 1px solid var(--border); padding-top: 15px; margin-bottom: 0; }
+    .example strong { display: block; color: #29486d; margin-bottom: 5px; font-size: 12px; }
+    .insights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 30px; }
+    .insight { padding: 22px 0 8px; border-top: 1px solid var(--border); }
+    .insight h3 { font-size: 15px; }
+    .instrument { margin-top: 27px; padding: clamp(26px, 4vw, 42px); background: #1c356b; color: white; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 28px; border-radius: 21px; }
+    .instrument .eyebrow { color: #a8dcd9; }
+    .instrument h2 { font-size: 27px; }
+    .instrument p { max-width: 690px; color: #e0e8fa; font-size: 14px; margin-bottom: 0; }
+    .instrument .btn { border-color: white; white-space: nowrap; }
+    .instrument .local-note { display: block; color: #c6d5ef; font-size: 12px; margin-top: 10px; text-align: center; }
+    .resources { padding: 28px; margin-top: 40px; }
+    .resource-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 22px; }
+    .resource-grid h3 { font-size: 14px; }
+    .resource-grid ul { margin: 0; padding-left: 18px; font-size: 13px; }
+    .resource-grid li { margin: 8px 0; }
+    footer { margin-top: 27px; font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; }
+    @media (max-width: 900px) {
+      .aspects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .instrument { grid-template-columns: 1fr; }
+      .instrument .local-note { text-align: left; }
+      .frequency-row { grid-template-columns: 160px 1fr 115px; gap: 12px; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .app { padding: 20px 14px 30px; }
+      .site-header { gap: 18px; }
+      .nav { gap: 18px; }
+      .hero { padding: 28px 23px; }
+      .lead { font-size: 16px; }
+      .stat { padding: 19px 16px; }
+      .stat-number { font-size: 29px; }
+      .section { margin-top: 38px; }
+      .aspects, .insights, .resource-grid { grid-template-columns: 1fr; }
+      .aspect h3 { min-height: 0; }
+      .card, .frequencies, .resources { padding: 23px 20px; }
+      .frequency-row { grid-template-columns: 1fr auto; gap: 5px 8px; }
+      .frequency-label { font-weight: 650; }
+      .frequency-total { grid-column: 2; grid-row: 1; }
+      .stack { grid-column: 1 / -1; grid-row: 2; }
+      .legend { gap: 8px 12px; }
+      .actions .btn { width: 100%; }
+      .bar-heading { font-size: 12px; }
+      .instrument .btn { white-space: normal; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+    @media print { body { background: white; } .app { max-width: none; padding: 0; } .panel { box-shadow: none; } .nav, .skip-link, footer a { display: none; } .section { margin-top: 28px; } .aspect, .insight, .stat { break-inside: avoid; } .instrument { background: white; color: var(--ink); border: 1px solid var(--border); } .instrument p, .instrument .eyebrow, .instrument .local-note { color: #45546b; } }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="app">
+    <header class="site-header" id="top">
+      <div class="identity">
+        <div class="mark" aria-hidden="true">&lt;/&gt;</div>
+        <div><div class="site-title">Developer Soft-Ethical Preferences</div><div class="site-subtitle">Research findings &amp; study materials</div></div>
+      </div>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#rq1">RQ1 · Agency</a><a href="#rq2">RQ2 · Aspects</a><a href="#rq3">RQ3 · Instrument</a><a href="#materials">Materials</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="panel hero" aria-labelledby="page-title">
+        <div class="eyebrow">Developer agency in AI-assisted software development</div>
+        <h1 id="page-title">Investigating Developers’ Soft-Ethical Preferences in the Age of LLM-Based Coding Assistants</h1>
+        <p class="lead">Different implementations can meet the same requirements while carrying different ethical implications. This study investigates the choices developers retain, the values those choices express, and how to make their preferences explicit when delegating code generation to LLMs.</p>
+        <p class="definition"><strong>What is a soft-ethical implementation preference?</strong> A preference among valid implementation alternatives left open by requirements and legal, organizational, and technical constraints. These choices can shape both source code and the behavior users experience.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="rq3/instrument_proof_of_concept.html">Try the instrument <span aria-hidden="true">→</span></a>
+          <a class="btn" href="paper.pdf">Read the paper <span class="source-note" style="margin:0">PDF</span></a>
+        </div>
+      </section>
+
+      <section id="rq1" class="section" aria-labelledby="rq1-title">
+        <div class="section-heading">
+          <div class="eyebrow">RQ1 · Developer’s agency</div>
+          <h2 id="rq1-title">Discretion remains. Values influence the choices.</h2>
+          <p>Developers report room for judgment after requirements and constraints are defined. They delegate some of that judgment to coding assistants, while seeking to retain control through prompting and code review.</p>
+        </div>
+        <div class="panel card survey-context">
+          <h3>Survey participants and recruitment</h3>
+          <p>The survey collected <strong>104 responses from software practitioners across 23 countries</strong>, excluding the four survey pilot participants. We used purposive sampling to target developers currently working in industry; participants could also hold research roles.</p>
+          <p>We recruited through <strong>Prolific (75 respondents), direct invitations (25), and developer communities on Reddit (4)</strong>, with all channels leading to the same Google Form. Prolific screening restricted participation to people currently employed in software engineering or development, experienced in programming, and familiar with programming languages. Prolific participants received $2.50; participation through the other channels was voluntary and uncompensated. Responses were anonymized before analysis.</p>
+          <p>Participants worked primarily in <strong>private companies (76%)</strong>. Most were software developers or engineers (53.8%) or senior developers (27.9%), and 83.7% had at least three years of professional experience. They represented diverse development areas and application domains, particularly backend and full-stack development (51.9% each), finance, and developer tools (26–28%).</p>
+          <p class="source-note">Source: <a href="paper.pdf#page=4">paper, Section III-A: Participants</a> and <a href="paper.pdf#page=6">Section IV: respondent background</a>.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="stat-number">62.5%</div><div class="stat-label">Have many or most implementation choices left open</div><div class="stat-detail">65 of 104 respondents</div></div>
+          <div class="stat"><div class="stat-number">85.6%</div><div class="stat-label">Acknowledge that personal priorities or values influence choices</div><div class="stat-detail">89 of 104 respondents</div></div>
+          <div class="stat"><div class="stat-number">82.7%</div><div class="stat-label">Report delegating at least some choices to LLMs</div><div class="stat-detail">86 of 104 · paper’s qualitative analysis</div></div>
+          <div class="stat"><div class="stat-number">67.3%</div><div class="stat-label">Might choose differently in another application context</div><div class="stat-detail">70 of 104 · “no” or “it depends”</div></div>
+        </div>
+        <div class="two-col">
+          <figure class="panel card">
+            <figcaption><h3>How much discretion is left?</h3><p class="chart-note">Implementation choices remaining after requirements and constraints are defined. All 104 respondents answered.</p></figcaption>
+            <div class="bars">
+              <div><div class="bar-heading"><span>Few choices</span><span>10 · 9.6%</span></div><div class="track" aria-hidden="true"><span class="fill" style="width:9.6154%"></span></div></div>
+              <div><div class="bar-heading"><span>Some choices</span><span>29 · 27.9%</span></div><div class="track" aria-hidden="true"><span class="fill" style="width:27.8846%"></span></div></div>
+              <div><div class="bar-heading"><span>Many choices</span><span>45 · 43.3%</span></div><div class="track" aria-hidden="true"><span class="fill" style="width:43.2692%"></span></div></div>
+              <div><div class="bar-heading"><span>Most choices</span><span>20 · 19.2%</span></div><div class="track" aria-hidden="true"><span class="fill" style="width:19.2308%"></span></div></div>
+            </div>
+          </figure>
+          <div class="panel card">
+            <h3>Delegation and oversight</h3>
+            <div class="mini-finding"><strong>74.0%</strong><p>Use coding assistants often or very often (77/104).</p></div>
+            <div class="mini-finding"><strong>43.3%</strong><p>Feel assistants substantially or very strongly make choices they would otherwise make (45/104).</p></div>
+            <div class="mini-finding"><strong>41.3%</strong><p>Accept generated implementations often or very often without substantial modification (43/104).</p></div>
+            <div class="mini-finding"><strong>46.2%</strong><p>Report reviewing and changing generated code (48/104); 28.8% guide assistants through prompts (30/104).</p></div>
+          </div>
+        </div>
+        <figure class="panel frequencies" aria-labelledby="consideration-title">
+          <div class="chart-top">
+            <figcaption><h3 id="consideration-title">Which ethical aspects do developers consciously consider?</h3><p class="chart-note">Frequency of consideration in discretionary implementation choices · 104 responses per aspect.</p></figcaption>
+            <ul class="legend" aria-label="Frequency legend">
+              <li><span class="swatch never" aria-hidden="true"></span>Never</li><li><span class="swatch rarely" aria-hidden="true"></span>Rarely</li><li><span class="swatch sometimes" aria-hidden="true"></span>Sometimes</li><li><span class="swatch often" aria-hidden="true"></span>Often</li><li><span class="swatch always" aria-hidden="true"></span>Always</li>
+            </ul>
+          </div>
+          <!-- Segment widths are response counts / 104; exact counts are available below. -->
+          <div class="frequency-rows">
+            <div class="frequency-row"><span class="frequency-label">Fairness</span><div class="stack" aria-hidden="true"><span class="never" style="width:7.6923%"></span><span class="rarely" style="width:16.3462%"></span><span class="sometimes" style="width:33.6538%"></span><span class="often" style="width:29.8077%"></span><span class="always" style="width:12.5%"></span></div><span class="frequency-total"><strong>42.3%</strong> often / always</span></div>
+            <div class="frequency-row"><span class="frequency-label">Privacy</span><div class="stack" aria-hidden="true"><span class="never" style="width:7.6923%"></span><span class="rarely" style="width:5.7692%"></span><span class="sometimes" style="width:9.6154%"></span><span class="often" style="width:36.5385%"></span><span class="always" style="width:40.3846%"></span></div><span class="frequency-total"><strong>76.9%</strong> often / always</span></div>
+            <div class="frequency-row"><span class="frequency-label">Inclusiveness</span><div class="stack" aria-hidden="true"><span class="never" style="width:10.5769%"></span><span class="rarely" style="width:13.4615%"></span><span class="sometimes" style="width:31.7308%"></span><span class="often" style="width:25.9615%"></span><span class="always" style="width:18.2692%"></span></div><span class="frequency-total"><strong>44.2%</strong> often / always</span></div>
+            <div class="frequency-row"><span class="frequency-label">Transparency &amp; explainability</span><div class="stack" aria-hidden="true"><span class="never" style="width:4.8077%"></span><span class="rarely" style="width:4.8077%"></span><span class="sometimes" style="width:17.3077%"></span><span class="often" style="width:42.3077%"></span><span class="always" style="width:30.7692%"></span></div><span class="frequency-total"><strong>73.1%</strong> often / always</span></div>
+            <div class="frequency-row"><span class="frequency-label">Traceability</span><div class="stack" aria-hidden="true"><span class="rarely" style="width:4.8077%"></span><span class="sometimes" style="width:24.0385%"></span><span class="often" style="width:37.5%"></span><span class="always" style="width:33.6538%"></span></div><span class="frequency-total"><strong>71.2%</strong> often / always</span></div>
+            <div class="frequency-row"><span class="frequency-label">Resource consumption</span><div class="stack" aria-hidden="true"><span class="rarely" style="width:5.7692%"></span><span class="sometimes" style="width:21.1538%"></span><span class="often" style="width:40.3846%"></span><span class="always" style="width:32.6923%"></span></div><span class="frequency-total"><strong>73.1%</strong> often / always</span></div>
+          </div>
+          <details>
+            <summary>View exact response counts</summary>
+            <div class="table-scroll">
+              <table>
+                <caption>Counts by frequency category. Each row totals 104; no missing responses.</caption>
+                <thead><tr><th scope="col">Aspect</th><th scope="col">Never</th><th scope="col">Rarely</th><th scope="col">Sometimes</th><th scope="col">Often</th><th scope="col">Always</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Fairness</th><td>8</td><td>17</td><td>35</td><td>31</td><td>13</td></tr>
+                  <tr><th scope="row">Privacy</th><td>8</td><td>6</td><td>10</td><td>38</td><td>42</td></tr>
+                  <tr><th scope="row">Inclusiveness</th><td>11</td><td>14</td><td>33</td><td>27</td><td>19</td></tr>
+                  <tr><th scope="row">Transparency &amp; explainability</th><td>5</td><td>5</td><td>18</td><td>44</td><td>32</td></tr>
+                  <tr><th scope="row">Traceability</th><td>0</td><td>5</td><td>25</td><td>39</td><td>35</td></tr>
+                  <tr><th scope="row">Resource consumption</th><td>0</td><td>6</td><td>22</td><td>42</td><td>34</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </figure>
+        <div class="panel card rq-answers" aria-labelledby="rq1-answers-title">
+          <h3 id="rq1-answers-title">RQ1 · Three answers</h3>
+          <ul class="answer-list">
+            <li><strong>Answer #1.</strong> Developers report substantial discretion over implementation choices affecting both code structure and observable software behavior, including choices with potential soft-ethical implications.</li>
+            <li><strong>Answer #2.</strong> Developers report considering personal priorities and soft-ethical aspects when making discretionary implementation choices. While some developers explicitly recognize the ethical relevance of their decisions, others may make choices that reflect such aspects without explicitly recognizing their ethical implications. Such decisions are often context-dependent, with application domain and intended users influencing developers’ priorities.</li>
+            <li><strong>Answer #3.</strong> Developers report delegating discretionary implementation choices to LLM-based coding assistants while seeking to retain agency through prompting and code review. When stating their acceptance criteria unprompted, they emphasize functional correctness, technical quality, and project constraints, while soft-ethical considerations, particularly those affecting end users, rarely emerge, even though developers recognize them in their own implementation choices once asked to reflect. This motivates investigating elicitation means for making developers’ preferences available to inform delegated implementation decisions.</li>
+          </ul>
+          <p class="source-note">Source: <a href="paper.pdf#page=6">paper, Section IV: Answers #1–#3</a>. Acceptance criteria were collected before the ethical aspects were introduced; examples of implementation choices were collected afterwards.</p>
+        </div>
+        <details class="panel card">
+          <summary>More survey statistics: choices and LLM use</summary>
+          <div class="two-col extra-stats">
+            <div>
+              <h3>Where is discretion exercised?</h3>
+              <ul class="compact-list">
+                <li>Error handling: 73 (70.2%); input validation: 71 (68.3%).</li>
+                <li>Code readability / maintainability: 71 (68.3%); data structures: 67 (64.4%); algorithms: 66 (63.5%).</li>
+                <li>Logging details and resource usage: 51 each (49.0%).</li>
+                <li>Accessibility details: 36 (34.6%); privacy details: 32 (30.8%).</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Values and context</h3>
+              <ul class="compact-list">
+                <li>44 already recognized the influence of personal values (42.3%); 45 recognized it when prompted (43.3%).</li>
+                <li>68 reflected on broader consequences often or always (65.4%).</li>
+                <li>30 might choose differently in another context (28.8%); 40 said “it depends” (38.5%).</li>
+              </ul>
+              <h3>What do developers use LLMs for?</h3>
+              <ul class="compact-list">
+                <li>Debugging: 86 (82.7%); generating new code: 82 (78.8%).</li>
+                <li>Reviewing and refactoring code: 71 each (68.3%).</li>
+                <li>Explaining / understanding code: 64 (61.5%); exploring alternatives: 56 (53.8%).</li>
+              </ul>
+              <p class="chart-note">Percentages use 104 valid responses. Discretionary choices and LLM activities allowed multiple selections, so percentages need not sum to 100%.</p>
+            </div>
+          </div>
+        </details>
+        <p class="source-note">Sources: RQ1 <a href="rq1/Discretionary%20Space.ipynb">Discretionary Space</a>, <a href="rq1/Use%20of%20LLMs.ipynb">Use of LLMs</a>, and <a href="rq1/Role%26Context.ipynb">Role &amp; Context</a> notebooks; <a href="paper.pdf#page=6">paper, Sections IV and VII</a>. Percentages are descriptive, rounded from response counts; the survey does not establish population prevalence or observed behavior.</p>
+      </section>
+
+      <section id="rq2" class="section" aria-labelledby="rq2-title">
+        <div class="section-heading">
+          <div class="eyebrow">RQ2 · Soft-ethical aspects</div>
+          <h2 id="rq2-title">Six aspects that can manifest in code.</h2>
+          <p>The aspects describe preferences over discretionary implementation alternatives. They cover both the static representation of source code and the behavior it encodes, can overlap, and apply within the space left open by mandatory requirements.</p>
+        </div>
+        <div class="aspects">
+          <article class="aspect">
+            <div class="aspect-number" aria-hidden="true">01</div><h3>Fairness</h3>
+            <p>Developers may prefer implementation choices that support equitable treatment across users, avoid encoding stereotypes, and differentiate users only when such distinctions are functionally relevant and justified.</p>
+            <p class="example"><strong>Implementation Manifestations</strong>Code can embed stereotypes or assumptions that may result in biased or differential treatment, even when the implementation is functionally correct. For example, identifiers and comments may associate stereotypical roles, behaviors, or capabilities with demographic groups, while an implementation may apply different validation, eligibility, or processing rules to users based on characteristics that are not functionally relevant.</p>
+          </article>
+          <article class="aspect">
+            <div class="aspect-number" aria-hidden="true">02</div><h3>Inclusiveness</h3>
+            <p>Developers may prefer implementation choices that accommodate users with different abilities, languages, devices, cultural conventions, gender identities, and needs, and that avoid implicitly centering only a narrow group of users.</p>
+            <p class="example"><strong>Implementation Manifestations</strong>Code can encode assumptions about users’ abilities, interaction modes, linguistic and cultural conventions, gender identities, or locally specific data formats. For example, a form may restrict gender to binary options, whereas an implementation may fail to accommodate users with different accessibility needs and accept input formats that follow different national or cultural conventions.</p>
+          </article>
+          <article class="aspect">
+            <div class="aspect-number" aria-hidden="true">03</div><h3>Privacy</h3>
+            <p>Developers may prefer implementation choices that minimize the collection, processing, storage, exposure, or sharing of personal data beyond what is functionally necessary for the system.</p>
+            <p class="example"><strong>Implementation Manifestations</strong>Code can collect, process, store, log, transmit, or expose user data beyond what is necessary to provide the intended functionality. For example, a form may request unnecessary demographic attributes, an application may use information that is not needed for its operation, or data may be retained, transmitted, or exposed beyond what the task requires.</p>
+          </article>
+          <article class="aspect">
+            <div class="aspect-number" aria-hidden="true">04</div><h3>Transparency and Explainability</h3>
+            <p>Developers may prefer implementation choices that make system behavior understandable to both maintainers and end users, through readable and self-explanatory implementation logic as well as clear user-facing explanations of system behavior.</p>
+            <p class="example"><strong>Implementation Manifestations</strong>Code can obscure why certain inputs are required, how validation is performed, or what actions the system takes. For example, developer-to-developer understanding can be supported through clear code structure, self-explanatory identifiers, and meaningful comments, while developer-to-user understanding can be supported through explanations of why information is requested, clear labels, and informative feedback about system actions and outcomes.</p>
+          </article>
+          <article class="aspect">
+            <div class="aspect-number" aria-hidden="true">05</div><h3>Traceability</h3>
+            <p>Developers may prefer implementation choices that make relevant actions, decisions, and responsibilities inspectable, attributable, and reviewable.</p>
+            <p class="example"><strong>Implementation Manifestations</strong>Code may perform actions without leaving sufficient evidence of what happened, when, and why. For example, traceability can be supported through explicit operation or submission states, meaningful error reporting, traceable validation or decision rules, audit-oriented events or logs, and mechanisms that allow users or maintainers to review relevant actions and outcomes.</p>
+          </article>
+          <article class="aspect">
+            <div class="aspect-number" aria-hidden="true">06</div><h3>Resource Consumption</h3>
+            <p>Developers may prefer implementation choices that minimize unnecessary computation, dependencies, network traffic, storage, and runtime overhead.</p>
+            <p class="example"><strong>Implementation Manifestations</strong>Code may satisfy functional requirements while consuming more resources than necessary. For example, an implementation may rely on unnecessarily heavy dependencies, perform redundant computations, trigger excessive client-side updates, make repeated or unnecessary network requests, or introduce avoidable storage and runtime overhead.</p>
+          </article>
+        </div>
+        <p class="source-note">Source: <a href="paper.pdf#page=9">Table I · Considered Developer Ethical Aspects</a>. Full descriptions and implementation manifestations reproduced from the paper.</p>
+      </section>
+
+      <section id="rq3" class="section" aria-labelledby="rq3-title">
+        <div class="section-heading">
+          <div class="eyebrow">RQ3 · Ethical profile elicitation instrument</div>
+          <h2 id="rq3-title">Elicit preferences through concrete choices.</h2>
+          <p>The resulting instrument uses hypothetical implementation scenarios to elicit self-reported preferences across the six aspects. Each item presents a task, two valid implementation alternatives, and a statement expressing one choice.</p>
+        </div>
+        <div class="panel card">
+          <h3>Insights for instrument development</h3>
+          <div class="insights">
+            <article class="insight"><h3>Anchor answers in a familiar context</h3><p>Ask developers to keep one system or application context in mind throughout. Preferences can depend on the domain, data sensitivity, target users, and resource constraints.</p></article>
+            <article class="insight"><h3>Make discretion explicit</h3><p>Both alternatives should satisfy the intended functionality. State that requirements and legal or organizational rules leave the choice open, and clarify assumptions about implementation effort.</p></article>
+            <article class="insight"><h3>Use concrete, neutral scenarios</h3><p>Describe actionable choices in familiar implementation terms, covering both developer-facing and user-facing concerns. Avoid wording that signals a preferred ethical answer.</p></article>
+            <article class="insight"><h3>Offer qualitative response options</h3><p>Ask how likely developers would be to make the stated choice, from “very unlikely” to “very likely,” with a neutral midpoint. Keep numerical scores and aspect labels out of individual questions.</p></article>
+            <article class="insight"><h3>Balance the direction of statements</h3><p>Include positively and reverse-keyed items. Reverse scoring makes higher values consistently indicate greater alignment with the corresponding aspect.</p></article>
+            <article class="insight"><h3>Interpret profiles in context</h3><p>Use multiple items per aspect and summarize responses as a descriptive profile. Treat scores as self-reported tendencies in hypothetical situations, with context shaping their interpretation.</p></article>
+          </div>
+          <div class="callout"><p><strong>Evaluation outcome.</strong> Six multidisciplinary experts reviewed the instrument, and four experienced industry developers piloted it. Developers generally found the scenarios understandable and plausible; all agreed the choices could reflect individual preferences, and none reported pressure to give socially desirable answers. Psychometric validation, links to actual behavior, and effectiveness for guiding code generation remain future work.</p></div>
+        </div>
+        <div class="instrument" id="instrument">
+          <div>
+            <div class="eyebrow">Explore the proof of concept</div>
+            <h2>From implementation choices to a preference profile.</h2>
+            <p>Answer scenarios in randomized order, view mean scores across the six aspects in a radar chart, and export item-level responses and aspect-level scores. The profile is a preliminary, context-dependent description of your stated preferences.</p>
+          </div>
+          <div><a class="btn" href="rq3/instrument_proof_of_concept.html">Open the instrument <span aria-hidden="true">→</span></a><span class="local-note">Runs locally in your browser · no data sent</span></div>
+        </div>
+        <p class="source-note">Sources: <a href="paper.pdf#page=8">paper, Sections VI–VII</a>; <a href="rq3/instrument_items.json">instrument items</a> and <a href="rq3/soft_ethical_aspects.json">aspect descriptions</a>.</p>
+      </section>
+
+      <section id="materials" class="panel resources" aria-labelledby="materials-title">
+        <div class="eyebrow">Explore the study</div>
+        <h2 id="materials-title">Paper, data, and materials</h2>
+        <div class="resource-grid">
+          <div><h3>RQ1 · Developer survey</h3><ul><li><a href="rq1/developers-answers.xlsx">Anonymized survey responses · XLSX</a></li><li><a href="rq1/Role%26Context.ipynb">Role &amp; Context analysis</a></li><li><a href="rq1/Use%20of%20LLMs.ipynb">Use of LLMs analysis</a></li><li><a href="rq1/Discretionary%20Space.ipynb">Discretionary Space analysis</a></li></ul></div>
+          <div><h3>RQ2 · Ethical aspects</h3><ul><li><a href="paper.pdf#page=9">Final aspect definitions · Table I</a></li><li><a href="rq2/focus-group-transcript.pdf">Focus group transcript · PDF</a></li><li><a href="rq1/ethical-aspects-rq1.pdf">Aspects presented in the survey · PDF</a></li></ul></div>
+          <div><h3>RQ3 · Elicitation instrument</h3><ul><li><a href="rq3/instrument_proof_of_concept.html">Interactive proof of concept</a></li><li><a href="rq3/instrument_items.json">Scenario-based items · JSON</a></li><li><a href="rq3/soft_ethical_aspects.json">Aspect descriptions · JSON</a></li><li><a href="rq3/pilot/d004/interview.pdf">Developer pilot interview · PDF</a></li></ul></div>
+        </div>
+      </section>
+    </main>
+    <footer><span>Study materials for Investigating Developers’ Soft-Ethical Preferences.</span><a href="#top">Back to top ↑</a></footer>
+  </div>
+</body>
+</html>
