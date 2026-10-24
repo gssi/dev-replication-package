@@ -26,6 +26,16 @@
     a { color: var(--blue); text-underline-offset: 3px; }
     a:hover { color: var(--blue-dark); }
     a:focus-visible, summary:focus-visible { outline: 3px solid #7b9bf3; outline-offset: 4px; border-radius: 4px; }
+    .paper-reference { cursor: pointer; font-family: inherit; }
+    .paper-reference:not(.btn) { border: 0; padding: 0; background: none; color: var(--blue); font: inherit; text-align: inherit; text-decoration: underline; text-underline-offset: 3px; }
+    .paper-reference:hover { color: var(--blue-dark); }
+    .paper-reference:focus-visible, .paper-notice button:focus-visible { outline: 3px solid #7b9bf3; outline-offset: 4px; border-radius: 4px; }
+    .paper-notice { width: min(460px, calc(100% - 32px)); padding: 28px; border: 1px solid var(--border); border-radius: 17px; color: var(--ink); background: var(--card); box-shadow: 0 20px 70px rgba(24,42,66,.2); }
+    .paper-notice::backdrop { background: rgba(24,36,54,.45); }
+    .paper-notice h2 { margin-top: 0; font-size: 24px; }
+    .paper-notice p { color: #45546b; }
+    .paper-notice form { margin: 22px 0 0; text-align: right; }
+    .paper-notice .btn { cursor: pointer; font-family: inherit; }
     .skip-link { position: absolute; top: -100px; left: 20px; z-index: 2; padding: 12px 20px; background: white; }
     .skip-link:focus { top: 12px; }
     .app { max-width: 1120px; margin: 0 auto; padding: 28px 24px 40px; }
@@ -213,7 +223,7 @@
         <p class="definition"><strong>What is a soft-ethical implementation preference?</strong> A preference among valid implementation alternatives left open by requirements and legal, organizational, and technical constraints. These choices can shape both source code and the behavior users experience.</p>
         <div class="actions">
           <a class="btn btn-primary" href="rq3/instrument_proof_of_concept.html">Try the instrument <span aria-hidden="true">→</span></a>
-          <a class="btn" href="paper.pdf">Read the paper <span class="source-note" style="margin:0">PDF</span></a>
+          <button class="paper-reference btn" type="button" aria-haspopup="dialog" aria-controls="paperNotice">Read the paper <span class="source-note" style="margin:0">PDF</span></button>
         </div>
       </section>
 
@@ -228,7 +238,7 @@
           <p>The survey collected <strong>104 responses from software practitioners across 23 countries</strong>, excluding the four survey pilot participants. We used purposive sampling to target developers currently working in industry; participants could also hold research roles.</p>
           <p>We recruited through <strong>Prolific (75 respondents), direct invitations (25), and developer communities on Reddit (4)</strong>, with all channels leading to the same Google Form. Prolific screening restricted participation to people currently employed in software engineering or development, experienced in programming, and familiar with programming languages. Prolific participants received $2.50; participation through the other channels was voluntary and uncompensated. Responses were anonymized before analysis.</p>
           <p>Participants worked primarily in <strong>private companies (76%)</strong>. Most were software developers or engineers (53.8%) or senior developers (27.9%), and 83.7% had at least three years of professional experience. They represented diverse development areas and application domains, particularly backend and full-stack development (51.9% each), finance, and developer tools (26-28%).</p>
-          <p class="source-note">Source: <a href="paper.pdf#page=4">paper, Section III-A: Participants</a> and <a href="paper.pdf#page=6">Section IV: respondent background</a>.</p>
+          <p class="source-note">Source: <button class="paper-reference" type="button" aria-haspopup="dialog" aria-controls="paperNotice">paper, Section III-A: Participants</button> and <button class="paper-reference" type="button" aria-haspopup="dialog" aria-controls="paperNotice">Section IV: respondent background</button>.</p>
           <details class="participant-details" id="participant-background">
             <summary>Explore participant demographics and development context</summary>
             <div>
@@ -408,7 +418,7 @@
             <li><strong>Finding #2.</strong> Developers report considering personal priorities and soft-ethical aspects when making discretionary implementation choices. While some developers explicitly recognize the ethical relevance of their decisions, others may make choices that reflect such aspects without explicitly recognizing their ethical implications. Such decisions are often context-dependent, with application domain and intended users influencing developers’ priorities.</li>
             <li><strong>Finding #3.</strong> Developers report delegating discretionary implementation choices to LLM-based coding assistants while seeking to retain agency through prompting and code review. When stating their acceptance criteria unprompted, they emphasize functional correctness, technical quality, and project constraints, while soft-ethical considerations, particularly those affecting end users, rarely emerge, even though developers recognize them in their own implementation choices once asked to reflect. This motivates investigating elicitation means for making developers’ preferences available to inform delegated implementation decisions.</li>
           </ul>
-          <p class="source-note">Source: <a href="paper.pdf#page=6">paper, Section IV: Findings #1-#3</a>. Acceptance criteria were collected before the ethical aspects were introduced; examples of implementation choices were collected afterwards.</p>
+          <p class="source-note">Source: <button class="paper-reference" type="button" aria-haspopup="dialog" aria-controls="paperNotice">paper, Section IV: Findings #1-#3</button>. Acceptance criteria were collected before the ethical aspects were introduced; examples of implementation choices were collected afterwards.</p>
         </div>
         <details class="panel card">
           <summary>More survey statistics: choices and LLM use</summary>
@@ -439,7 +449,7 @@
             </div>
           </div>
         </details>
-        <p class="source-note">Sources: RQ1 <a href="rq1/Discretionary%20Space.ipynb">Discretionary Space</a>, <a href="rq1/Use%20of%20LLMs.ipynb">Use of LLMs</a>, and <a href="rq1/Role%26Context.ipynb">Role &amp; Context</a> notebooks; <a href="paper.pdf#page=6">paper, Sections IV and VII</a>. Percentages are descriptive, rounded from response counts; the survey does not establish population prevalence or observed behavior.</p>
+        <p class="source-note">Sources: RQ1 <a href="rq1/Discretionary%20Space.ipynb">Discretionary Space</a>, <a href="rq1/Use%20of%20LLMs.ipynb">Use of LLMs</a>, and <a href="rq1/Role%26Context.ipynb">Role &amp; Context</a> notebooks; <button class="paper-reference" type="button" aria-haspopup="dialog" aria-controls="paperNotice">paper, Sections IV and VII</button>. Percentages are descriptive, rounded from response counts; the survey does not establish population prevalence or observed behavior.</p>
       </section>
 
       <section id="rq2" class="section" aria-labelledby="rq2-title">
@@ -480,7 +490,7 @@
             <p class="example"><strong>Implementation Manifestations</strong>Code may satisfy functional requirements while consuming more resources than necessary. For example, an implementation may rely on unnecessarily heavy dependencies, perform redundant computations, trigger excessive client-side updates, make repeated or unnecessary network requests, or introduce avoidable storage and runtime overhead.</p>
           </article>
         </div>
-        <p class="source-note">Source: <a href="paper.pdf#page=9">Table I · Considered Developer Ethical Aspects</a>. Full descriptions and implementation manifestations reproduced from the paper.</p>
+        <p class="source-note">Source: <button class="paper-reference" type="button" aria-haspopup="dialog" aria-controls="paperNotice">Table I · Considered Developer Ethical Aspects</button>. Full descriptions and implementation manifestations reproduced from the paper.</p>
       </section>
 
       <section id="rq3" class="section" aria-labelledby="rq3-title">
@@ -515,7 +525,7 @@
           </div>
           <div><a class="btn" href="rq3/instrument_proof_of_concept.html">Open the instrument <span aria-hidden="true">→</span></a><span class="local-note">Runs locally in your browser · no data sent</span></div>
         </div>
-        <p class="source-note">Sources: <a href="paper.pdf#page=8">paper, Sections VI-VII</a>; <a href="rq3/instrument_items.json">instrument items</a> and <a href="rq3/soft_ethical_aspects.json">aspect descriptions</a>.</p>
+        <p class="source-note">Sources: <button class="paper-reference" type="button" aria-haspopup="dialog" aria-controls="paperNotice">paper, Sections VI-VII</button>; <a href="rq3/instrument_items.json">instrument items</a> and <a href="rq3/soft_ethical_aspects.json">aspect descriptions</a>.</p>
       </section>
 
       <section id="materials" class="panel resources" aria-labelledby="materials-title">
@@ -523,12 +533,23 @@
         <h2 id="materials-title">Paper, data, and materials</h2>
         <div class="resource-grid">
           <div><h3>RQ1 · Developer survey</h3><ul><li><a href="rq1/developers-answers.xlsx">Anonymized survey responses · XLSX</a></li><li><a href="rq1/Role%26Context.ipynb">Role &amp; Context analysis</a></li><li><a href="rq1/Use%20of%20LLMs.ipynb">Use of LLMs analysis</a></li><li><a href="rq1/Discretionary%20Space.ipynb">Discretionary Space analysis</a></li></ul></div>
-          <div><h3>RQ2 · Ethical aspects</h3><ul><li><a href="paper.pdf#page=9">Final aspect definitions · Table I</a></li><li><a href="rq2/focus-group-transcript.pdf">Focus group transcript · PDF</a></li><li><a href="rq1/ethical-aspects-rq1.pdf">Aspects presented in the survey · PDF</a></li></ul></div>
+          <div><h3>RQ2 · Ethical aspects</h3><ul><li><button class="paper-reference" type="button" aria-haspopup="dialog" aria-controls="paperNotice">Final aspect definitions · Table I</button></li><li><a href="rq2/focus-group-transcript.pdf">Focus group transcript · PDF</a></li><li><a href="rq1/ethical-aspects-rq1.pdf">Aspects presented in the survey · PDF</a></li></ul></div>
           <div><h3>RQ3 · Elicitation instrument</h3><ul><li><a href="rq3/instrument_proof_of_concept.html">Interactive proof of concept</a></li><li><a href="rq3/instrument_items.json">Scenario-based items · JSON</a></li><li><a href="rq3/soft_ethical_aspects.json">Aspect descriptions · JSON</a></li><li><a href="rq3/pilot/d004/interview.pdf">Developer pilot interview · PDF</a></li></ul></div>
         </div>
       </section>
     </main>
     <footer><span>Study materials for Investigating Developers’ Soft-Ethical Preferences.</span><a href="#top">Back to top ↑</a></footer>
   </div>
+  <dialog id="paperNotice" class="paper-notice" aria-labelledby="paperNoticeTitle" aria-describedby="paperNoticeDescription">
+    <h2 id="paperNoticeTitle">Paper under review</h2>
+    <p id="paperNoticeDescription">The paper is currently under review and will be available upon acceptance.</p>
+    <form method="dialog"><button class="btn btn-primary" autofocus>Close</button></form>
+  </dialog>
+  <script>
+    const paperNotice = document.getElementById('paperNotice');
+    document.querySelectorAll('.paper-reference').forEach(button => {
+      button.addEventListener('click', () => paperNotice.showModal());
+    });
+  </script>
 </body>
 </html>
