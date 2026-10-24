@@ -12,9 +12,16 @@ The study investigates developers’ agency over implementation choices left ope
 
 ## Explore the materials
 
-🌐 Navigate the project [website](https://anonymous.4open.science/w/developers-agency-llm-seis/).
+🌐 Navigate the project [website](https://anonymous.4open.science/w/developers-agency-llm-seis/) locally to explore the findings and browse the materials.
 
-Alternatively, open [index.html](index.html) in a browser to explore the findings and participant charts. Try the [questionnaire](rq3/instrument_proof_of_concept.html), or [compare profiles](rq3/profile_comparison.html) by uploading exported questionnaire and self-declared ratings. These pages run locally without a server.
+Alternatively, open [index.html](index.html) with your browser. All the pages run in your browser without a server.
+
+## Try the questionnaire proof of concept
+
+📝 **[Open the questionnaire proof of concept](https://anonymous.4open.science/w/developers-agency-llm-seis/rq3/instrument_proof_of_concept.html)** to answer the scenarios and view your soft-ethical preference profile.
+
+> **Downloading questionnaire results is not available on anonymous.4open.science.** To enable this functionality, download a copy of this repository and open `index.html` from that copy in your browser and follow the links, or `rq3/instrument_proof_of_concept.html`. No server is required.
+
+You can also [compare profiles](rq3/profile_comparison.html) using exported questionnaire responses and self-declared ratings.
 
 The instrument describes preferences within hypothetical scenarios; its psychometric properties require further validation.
-
